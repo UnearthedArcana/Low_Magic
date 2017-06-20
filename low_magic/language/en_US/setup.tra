@@ -1,0 +1,158 @@
+@1   = ~skipping component~
+@6   = ~...~
+@100   = ~Low, low magic world~
+@1001   = ~Mastercraft Arrow~
+@1002   = ~Enchanted Arrow~
+@1003   = ~Mastercraft Bolt~
+@1004   = ~Enchanted Bolt~
+@1005   = ~Mastercraft Sling Bullet~
+@1006   = ~Enchanted Sling Bullet~
+@1007   = ~Mastercraft Battle Axe~
+@1008   = ~Enchanted Throwing Axe~
+@1009   = ~Mastercraft Flail~
+@1010   = ~Mastercraft Mace~
+@1011   = ~Mastercraft Morning Star~
+@1012   = ~Enchanted Flail~
+@1013   = ~Enchanted Morning Star~
+@1014   = ~Mastercraft Composite Longbow~
+@1015   = ~Mastercraft Longbow~
+@1016   = ~Mastercraft Shortbow~
+@1017   = ~Enchanted Composite Longbow~
+@1018   = ~Enchanted Longow~
+@1019   = ~Enchanted Shortbow~
+@1020   = ~Mastercraft Dagger~
+@1021   = ~Mastercraft Darts~
+@1022   = ~Mastercraft Halberd~
+@1023   = ~Mastercraft War Hammer~
+@1024   = ~Mastercraft Sling~
+@1025   = ~Mastercraft Spear~
+@1026   = ~Enchanted Spear~
+@1027   = ~Mastercraft Quarterstaff~
+@1028   = ~Enchanted Quarterstaff~
+@1029   = ~Mastercraft Bastard Sword~
+@1030   = ~Mastercraft Long Sword~
+@1031   = ~Mastercraft Short Sword~
+@1032   = ~Mastercraft Scimitar~
+@1033   = ~Mastercraft Katana~
+@1034   = ~Mastercraft Wakizashi~
+@1035   = ~Mastercraft Ninja-to~
+@1036   = ~Drusus~
+@1037   = ~Enchanted Long Sword~
+@1038   = ~Enchanted Bastard Sword~
+@1039   = ~Enchanted Katana~
+@1040   = ~Mastercraft Two-Handed Sword~
+@1041   = ~Enchanted Two-Handed Sword~
+@1042   = ~Mastercraft Heavy Crossbow~
+@1043   = ~Mastercraft Light Crossbow~
+@1044   = ~Mastercraft Chain Mail~
+@1045   = ~Mastercraft Splint Mail~
+@1046   = ~Enchanted Chain Mail~
+@1047   = ~Mastercraft Leather Armor~
+@1048   = ~Mastercraft Studded Leather~
+@1049   = ~Enchanted Leather Armor~
+@1050   = ~Enchanted Halberd~
+@1051   = ~Mastercraft Small Shield~
+@1052   = ~Mastercraft Medium Shield~
+@1053   = ~Mastercraft Large Shield~
+@1054   = ~The Redshield~
+@1055   = ~Mastercraft Buckler~
+@1056   = ~Enchanted Small Shield~
+@1057   = ~Enchanted Medium Shield~
+@1058   = ~Quiver of Plenty~
+@1059   = ~Quiver of Plenty
+The history of this magical quiver has been long forgotten, though it likely had something to do with the inexplicable but well documented shortage of competent fletchers during the Time of Troubles.
+
+STATISTICS:
+
+Equipped abilities:
+– Unlimited mastercraft arrows 
+
+Weight: 0~
+@1060   = ~Case of Plenty~
+@1061   = ~Case of Plenty
+The history of this magical case has been long forgotten, though it likely had something to do with the inexplicable but well documented shortage of competent fletchers during the Time of Troubles.
+
+STATISTICS:
+
+Equipped abilities:
+– Unlimited mastercraft bolts
+
+Weight: 0~
+@1062   = ~Mastercraft Club~
+@1063   = ~Bag of Plenty~
+@1064   = ~Bag of Plenty
+Although this soft cloth pouch is empty right now, there is still a powerful aura of magic surrounding it.
+
+STATISTICS:
+
+Equipped abilities:
+– Unlimited mastercraft sling bullets
+
+Weight: 0~
+@1065   = ~Enchanted Battle Axe~
+@1066   = ~Dagger: Heart of the Golem~
+@1067   = ~Enchanted Dagger~
+@1068   = ~Suryris' Blade~
+@1069   = ~War Hammer: Ashideena~
+@1070   = ~War Hammer: Borok's Fist~
+@1071   = ~Enchanted Studded Leather~
+@1072   = ~Mastercraft Plate Mail~
+@1073   = ~Mastercraft Full Plate~
+@1074   = ~Enchanted Full Plate~
+@1075   = ~Enchanted Large Shield~
+@1076   = ~Enchanted Sling~
+@1077   = ~Varscona~
+@1078   = ~The Whistling Sword~
+@1079   = ~Water's Edge~
+@1080   = ~Enchanted Mace~
+@1081   = ~Mastercraft Club~
+@1082   = ~Drow Crossbow Bolts~
+@1083   = ~Enchanted Drow Flail~
+@1084   = ~Enchanted Drow Halberd~
+@1085   = ~Enchanted Drow Spear~
+@1086   = ~Enchanted Drow Scimitar~
+@1087   = ~Enchanted Drow Long Sword~
+@1088   = ~Enchanted War Hammer~
+@1089   = ~Yoshimo's Katana~
+@1090   = ~Enchanted Heavy Crossbow~
+@1091   = ~Enchanted Light Crossbow~
+@1092   = ~Quiver of Plenty
+The history of this magical quiver has been long forgotten, though it likely had something to do with the inexplicable but well documented shortage of competent fletchers during the Time of Troubles.
+
+STATISTICS:
+
+Equipped abilities:
+– Unlimited enchanted arrows 
+
+Weight: 0~
+@1093   = ~Case of Plenty
+The history of this magical case has been long forgotten, though it likely had something to do with the inexplicable but well documented shortage of competent fletchers during the Time of Troubles.
+
+STATISTICS:
+
+Equipped abilities:
+– Unlimited enchanted bolts
+
+Weight: 0~
+@1094   = ~Bag of Plenty
+Although this soft cloth pouch is empty right now, there is still a powerful aura of magic surrounding it.
+
+STATISTICS:
+
+Equipped abilities:
+– Unlimited enchanted sling bullets
+
+Weight: 0~
+@1095   = ~Bone Club~
+@1096   = ~Gnasher~
+@1097   = ~Greater Cloak of Protection~
+@1098   = ~Duskblade~
+@1099   = ~Wave~
+@1100   = ~The Kneecapper~
+@1101   = ~Greater Ring of Protection~
+@1102   = ~Superior Ring of Protection~
+@1103   = ~Shield of Falling Stars~
+@1104   = ~The Impaler~
+@1105   = ~Halcyon Spear~
+@1106   = ~Kondar~
+@1107   = ~Rashad's Talon~
