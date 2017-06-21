@@ -1,6 +1,7 @@
 @1   = ~skipping component~
 @6   = ~...~
-@100   = ~Low, low magic world~
+@100   = ~No generic magic weapons/armor~
+@200   = ~Reduced spell level scaling and durations~
 @1001   = ~Mastercraft Arrow~
 @1002   = ~Enchanted Arrow~
 @1003   = ~Mastercraft Bolt~

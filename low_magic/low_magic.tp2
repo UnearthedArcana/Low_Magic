@@ -1,7 +1,7 @@
 BACKUP ~low_magic/backup~
-AUTHOR ~SubtleD~
+AUTHOR ~UnearthedArcana~
 
-VERSION ~v0.1~
+VERSION ~v0.2~
 
 LANGUAGE
   ~English~
@@ -13,18 +13,24 @@ LANGUAGE
 //
 //		STILL LEFT TO DO:
 //		- remove duplicates of various magical items
+//		- remove spell level scaling...? 			(half done in v0.2, needs desc patches)
+//		- reduce all spell durations...? 			(half done in v0.2, needs desc patches)
 //		- raise the price of spell scrolls...?
-//		- remove spell level scaling...?
-//		- reduce all spell durations...?
+//		- nerf wands 
 //		- reduce efficacy of potions...?
-//		- nerf wands somehow 
-//			(fewer max charges/more expensive to recharge...? or just nerf effects?)
 //		- ?????
 //__________________________________________________________________________________
 
 
 
-BEGIN @100
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//					 no generic magic weapons/armor
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+BEGIN @100 
 
 //__________________________________________________________________________________
 //
@@ -1028,5 +1034,90 @@ ACTION_IF FILE_EXISTS_IN_GAME ~sw1h23.itm~ THEN BEGIN
 END
 //__________________________________________________________________________________
 
-
 END		//		end no IWDEE
+
+
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//					reduced spell level scaling & durations
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+BEGIN @200 
+
+//__________________________________________________________________________________
+//
+OUTER_SET new_short_duration 	= 18
+OUTER_SET new_medium_duration	= 36
+OUTER_SET new_long_duration		= 120
+OUTER_SET new_all_day_duration 	= 600
+//__________________________________________________________________________________
+
+
+//__________________________________________________________________________________
+//
+COPY_EXISTING_REGEXP GLOB ~^.+\.spl$~ ~override~
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 2 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 3 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 4 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 5 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 6 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 7 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 8 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 9 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 10 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 11 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 12 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 13 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 14 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 15 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 16 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 17 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 18 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 19 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 20 END
+BUT_ONLY
+
+
+COPY_EXISTING_REGEXP GLOB ~^.+\.spl$~ ~override~
+  READ_LONG 0x64 header_offset
+  READ_SHORT 0x68 header_count
+  READ_LONG 0x6a effect_offset
+  FOR (header = 0; header < header_count ; ++header) BEGIN
+	READ_SHORT (header_offset + (header * 0x28) + 0x1e) effect_count
+	READ_SHORT (header_offset + (header * 0x28) + 0x20) effect_index
+	FOR (effect = 0; effect < effect_count; ++effect) BEGIN
+	  READ_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) old_duration
+	  PATCH_IF (old_duration > 12) BEGIN
+		PATCH_IF (old_duration < 61) BEGIN
+		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_short_duration
+		END
+	  END
+	  PATCH_IF (old_duration > 60) BEGIN
+		PATCH_IF (old_duration < 301) BEGIN
+		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_medium_duration
+		END
+	  END
+	  PATCH_IF (old_duration > 300) BEGIN
+		PATCH_IF (old_duration < 901) BEGIN
+		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_long_duration
+		END
+	  END
+	  PATCH_IF (old_duration > 900) BEGIN
+		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_all_day_duration
+	  END
+	END
+  END
+BUT_ONLY
+
+/*
+set WEB.PRO to fewer repetitions :(
+same for other spell projectiles... which ones?
+
+ALSO: need to do MAJOR description patching... in the "Duration: " field, but also in bodies of spell descriptions, to remove all mention of level scaling and durations. 
+Looks like a YUGE PITA :(
+*/
+//__________________________________________________________________________________
