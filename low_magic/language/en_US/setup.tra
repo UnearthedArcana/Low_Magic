@@ -1,7 +1,15 @@
 @1   = ~skipping component~
 @6   = ~...~
-@100   = ~No generic magic weapons/armor~
-@200   = ~Reduced spell level scaling and durations~
+//
+@100   = ~No Generic Magic Items~
+@200   = ~No Spell Level Scaling~
+@300   = ~Reduce Spell Durations~
+@400   = ~Increase Scroll Prices~
+@401   = ~Increase as Multiple of Existing Price~
+@402   = ~Increase Based on Spell Level~
+@500   = ~Reduce Power of Wands~
+@600   = ~Slower XP Advancement for Warriors & Rogues~
+//
 @1001   = ~Mastercraft Arrow~
 @1002   = ~Enchanted Arrow~
 @1003   = ~Mastercraft Bolt~
@@ -157,3 +165,4 @@ Weight: 0~
 @1105   = ~Halcyon Spear~
 @1106   = ~Kondar~
 @1107   = ~Rashad's Talon~
+//
