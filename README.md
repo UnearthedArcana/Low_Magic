@@ -40,8 +40,26 @@
     <p>This component increases the price of scrolls.  Arcane scrolls that allow you to learn spells can either be 100 times the square of the spell level (so, 8,100gp for 9th level spells), or simply triple the vanilla scroll price.  Other scrolls will be triple the normal price.</p>
 </div>
 <div class="section">
-    <p><b><i>Component #500: Reduced Power of Magic Wands</i></b></p>
-    <p>This component </p>
+    <p><b><i>Component #500: Weaponized Wands</i></b></p>
+    <p>This component changes most of the wands in the game into magical weapons for use by arcane spellcasters. Wands always hit, do not benefit from weapon proficiencies, cannot critically hit, set attacks per round to one and have a range of 30 feet. 
+    <ul>
+      <li> Wand of Missiles: 2d3 magic damage </li>
+      <li> Wand of Fire: 2d4 fire damage (save vs. wand -2 for half damage); choice of two different area of effect patterns (30' ray, 3' burst) </li>
+      <li> Wand of Frost: 1d4 cold damage; slows for 2 rounds (save vs. wand -2 negates slow) </li>
+      <li> Wand of Lightning: 1d6 electric damage; can pierce through creatures and bounce off walls </li> 
+      <li> Wand of the Heavens: 1d4 fire damage; +1d4 magic damage against evil (druids and priests only) </li> 
+      <li> Wand of Cloudkill: 1d6 poison damage; slays creatures with 6 or fewer HD (save vs. wands -2 negates slay) </li> 
+      <li> Wand of Corrosion: 1d4 acid damage; -2 penalty to Armor Class for 1 round (IWD only) </li> 
+      <li> Wand of Many Missiles: 5d3 magic damage (IWD only) </li> 
+      <li> Wand of Fear: panic for 2 rounds (save vs. wands -2 negates) </li> 
+      <li> Wand of Paralyzation: stun for 1 round (save vs. wands -2 negates) </li> 
+      <li> Wand of Sleep: sleep for 2 rounds or until damaged (save vs. wands -2 negates) </li> 
+      <li> Wand of Polymorph: polymorph into a squirrel 1 round (save vs. wands -2 negates) </li> 
+      <li> Wand of Cursing: choice of either blind for 2 rounds or silence for 2 rounds (save vs. wands -2 negates either) </li> 
+      <li> Wand of Spellstriking: choice of either remove combat protections (4th level or lower) or remove spell protections (4th level or lower) (save vs. wands -2 negates either) </li> 
+      <li> Wand of Summoning: summon an ogre, hogoblin, dire wolf, or gnoll adjacent to target for 2 rounds (IWD only) </li> 
+    </ul>
+    </p>
 </div>
 <div class="section">
     <p><b><i>Component #600: Slower XP Advancement for Fighters and Rogues</i></b></p>
