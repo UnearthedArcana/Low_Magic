@@ -45,7 +45,7 @@
     <ul>
       <li> Wand of Missiles: 2d3 magic damage </li>
       <li> Wand of Fire: 2d4 fire damage (save vs. wand -2 for half damage); choice of two different area of effect patterns (30' ray, 3' burst) </li>
-      <li> Wand of Frost: 1d4 cold damage; slows for 2 rounds (save vs. wand -2 negates slow) </li>
+      <li> Wand of Frost: 1d4 cold damage; slows for 2 rounds (save vs. wand -2 negates slow) (in IWD, this replaces the Wand of Freezing Death)</li>
       <li> Wand of Lightning: 1d6 electric damage; can pierce through creatures and bounce off walls </li> 
       <li> Wand of the Heavens: 1d4 fire damage; +1d4 magic damage against evil (druids and priests only) </li> 
       <li> Wand of Cloudkill: 1d6 poison damage; slays creatures with 6 or fewer HD (save vs. wands -2 negates slay) </li> 
@@ -57,7 +57,7 @@
       <li> Wand of Polymorph: polymorph into a squirrel 1 round (save vs. wands -2 negates) </li> 
       <li> Wand of Cursing: choice of either blind for 2 rounds or silence for 2 rounds (save vs. wands -2 negates either) </li> 
       <li> Wand of Spellstriking: choice of either remove combat protections (4th level or lower) or remove spell protections (4th level or lower) (save vs. wands -2 negates either) </li> 
-      <li> Wand of Summoning: summon an ogre, hogoblin, dire wolf, or gnoll adjacent to target for 2 rounds (IWD only) </li> 
+      <li> Wand of Summoning: summon an ogre, hogoblin, dire wolf, or gnoll adjacent to target for 2 rounds </li> 
     </ul>
     </p>
 </div>
