@@ -20,6 +20,7 @@ LANGUAGE
 //		- 500: nerf wands 					(done-ish in 0.31) 
 //		- 500: reduce efficacy of potions...?			
 //		- 600: move non-casters to slower XP table		(done in 0.3)
+//		- 700: move non-casters to slower XP table		(done in 0.31?)
 //		- ?????
 //__________________________________________________________________________________
 
@@ -1586,3 +1587,120 @@ COPY_EXISTING ~xplevel.2da~ ~override~
   END
 BUT_ONLY
 //__________________________________________________________________________________
+
+
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//					 	reudced magical item slots [aqua]
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+BEGIN @701 
+DESIGNATED 701
+SUBCOMPONENT @700
+
+INCLUDE ~low_magic/low_magic.ini~
+
+LAM set_item_slot_behavior
+
+//makes items use the amulet slot
+COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+		READ_SHORT 0x1c type
+		//amulets
+		PATCH_IF ((type = 1) AND (qd_rmis_amulet = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//belts
+		PATCH_IF ((type = 3) AND (qd_rmis_belt = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//boots 
+		PATCH_IF ((type = 4) AND (qd_rmis_boots = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//gloves
+		PATCH_IF ((type = 6) AND (qd_rmis_gloves = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//helms
+		PATCH_IF ((type = 7) AND (qd_rmis_helm = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//rings
+		PATCH_IF ((type = 10) AND (qd_rmis_ring = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//cloaks
+		PATCH_IF ((type = 32) AND (qd_rmis_cloak = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+   END
+BUT_ONLY
+
+//updating amulet sounds
+ACTION_IF (NOT GAME_IS ~iwdee~) BEGIN 
+	COPY_EXISTING ~GAM_13A.wav~ ~override/GAM_14A.wav~ 
+	COPY_EXISTING ~GAM_13B.wav~ ~override/GAM_14B.wav~ 
+END ELSE BEGIN 
+	COPY_EXISTING ~GAM_13A.wav~ ~override/G_NECK1.wav~ 
+	COPY_EXISTING ~GAM_13B.wav~ ~override/G_NECK2.wav~
+END 
+
+
+BEGIN @702 
+DESIGNATED 702
+SUBCOMPONENT @700
+
+INCLUDE ~low_magic/low_magic.ini~
+
+LAM set_item_slot_behavior
+
+//makes items use the ring slots
+COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+		READ_SHORT 0x1c type
+		//amulets
+		PATCH_IF ((type = 1) AND (qd_rmis_amulet = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//belts
+		PATCH_IF ((type = 3) AND (qd_rmis_belt = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//boots 
+		PATCH_IF ((type = 4) AND (qd_rmis_boots = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//gloves
+		PATCH_IF ((type = 6) AND (qd_rmis_gloves = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//helms
+		PATCH_IF ((type = 7) AND (qd_rmis_helm = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//rings
+		PATCH_IF ((type = 10) AND (qd_rmis_ring = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//cloaks
+		PATCH_IF ((type = 32) AND (qd_rmis_cloak = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+   END
+BUT_ONLY
+
+//updating ring sounds
+ACTION_IF (NOT GAME_IS ~iwdee~) BEGIN 
+	COPY_EXISTING ~GAM_13A.wav~ ~override/GAM_43A.wav~ 
+	COPY_EXISTING ~GAM_13B.wav~ ~override/GAM_43B.wav~ 
+END ELSE BEGIN 
+	COPY_EXISTING ~GAM_13A.wav~ ~override/G_RING1.wav~ 
+	COPY_EXISTING ~GAM_13B.wav~ ~override/G_RING2.wav~
+END 
+
+
