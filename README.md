@@ -65,5 +65,9 @@
     <p><b><i>Component #600: Slower XP Advancement for Fighters and Rogues</i></b></p>
     <p>Since this mod can pretty severely weaken spellcasters, relative to warriors, it makes sense that warriors should advance in poer more slowly.  This component puts fighters onto the paladin/ranger XP table, and puts thieves and bards onto the old fighter XP table.</p>
 </div>
+<div class="section">
+    <p><b><i>Component #700: Reduced Magical Item Slots</i></b></p>
+    <p>This component reduces the number of magical items that one can equip at once to either one (first subcomponent) or two (second subcomponent). Armor and weapons are not affected by this component, and helmets are not affected by default. The item types that are affected by default are amulets, belts, boots, gloves, rings, and cloaks, although you can change which item types are affected via the .ini file.</p>
+</div>
 </body>
 </html>
