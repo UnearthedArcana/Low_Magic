@@ -9,6 +9,9 @@
 @402   = ~Increase Based on Spell Level~
 @500   = ~Weaponized Wands~
 @600   = ~Slower XP Advancement for Warriors & Rogues~
+@700   = ~Reduced Magical Item Slots~
+@701   = ~One Wondrous Item Slot~ 
+@702   = ~Two Wondrous Item Slots~ 
 //
 @1001   = ~Mastercraft Arrow~
 @1002   = ~Enchanted Arrow~
