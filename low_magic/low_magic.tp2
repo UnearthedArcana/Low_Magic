@@ -1,7 +1,7 @@
 BACKUP ~low_magic/backup~
 AUTHOR ~UnearthedArcana~
 
-VERSION ~v0.3~
+VERSION ~v0.5~
 
 LANGUAGE
   ~English~
@@ -13,14 +13,15 @@ LANGUAGE
 //
 //		STUFF TO DO:
 //		- 100: de-enchant generic magic weapons/armor	(done in 0.1)
-//		- 100: remove dupes of various magical items		
+//		- 150: remove dupes of various magical items		
 //		- 200: remove spell level scaling				(half done in 0.2, still needs desc patches)
 //		- 300: reduce all spell durations	 			(done in 0.3, but still adding languages)
 //		- 400: raise the price of spell scrolls			(done in 0.3)
-//		- 500: nerf wands 					(done-ish in 0.31) 
-//		- 500: reduce efficacy of potions...?			
+//		- 501: weaponize wands 							(done-ish in 0.31) 
+//		- 502: reduce wand charges 						(done-ish in 0.5) 
+//		- 580: reduce efficacy of potions...?			
 //		- 600: move non-casters to slower XP table		(done in 0.3)
-//		- 700: move non-casters to slower XP table		(done in 0.31?)
+//		- 700: reduced magical equipment slots			(done in 0.31?)
 //		- ?????
 //__________________________________________________________________________________
 
@@ -29,7 +30,7 @@ LANGUAGE
 //__________________________________________________________________________________
 //__________________________________________________________________________________
 //
-//					 no generic magic weapons/armor
+//					 no generic magic weapons/armor [SD]
 //__________________________________________________________________________________
 //__________________________________________________________________________________
 
@@ -37,1015 +38,16 @@ LANGUAGE
 BEGIN @100 
 DESIGNATED 100
 
+INCLUDE ~low_magic/components/100_no_magic_weapons.tpa~
 
-ACTION_IF NOT GAME_IS ~iwdee~ THEN BEGIN 		//		doesn't really work for IWDEE... :(
-
-//__________________________________________________________________________________
-//
-COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
-   PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-	READ_LONG 0x60 enchantment
-	PATCH_IF (enchantment = 1) BEGIN
-		WRITE_LONG 0x60 3
-	END
-   END
-BUT_ONLY
-
-COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
-   PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-	READ_LONG 0x60 enchantment
-	PATCH_IF (enchantment = 2) BEGIN
-		WRITE_LONG 0x60 3
-	END
-   END
-BUT_ONLY
-
-COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
-   PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-	READ_LONG 0x60 enchantment
-	PATCH_IF (enchantment = 4) BEGIN
-		WRITE_LONG 0x60 3
-	END
-   END
-BUT_ONLY
-
-COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
-   PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-	READ_LONG 0x60 enchantment
-	PATCH_IF (enchantment = 6) BEGIN
-		WRITE_LONG 0x60 5
-	END
-   END
-BUT_ONLY
-
-ACTION_IF FILE_EXISTS_IN_GAME ~arow05.itm~ THEN BEGIN
-  COPY_EXISTING ~arow05.itm~ ~override~
-	WRITE_LONG 0x60 0
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow12.itm~ THEN BEGIN
-  COPY_EXISTING ~arow12.itm~ ~override~
-	WRITE_LONG 0x60 0
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow04.itm~ THEN BEGIN
-  COPY_EXISTING ~arow04.itm~ ~override~
-	WRITE_LONG 0x60 0
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow06.itm~ THEN BEGIN
-  COPY_EXISTING ~arow06.itm~ ~override~
-	WRITE_LONG 0x60 0
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow08.itm~ THEN BEGIN
-  COPY_EXISTING ~arow08.itm~ ~override~
-	WRITE_LONG 0x60 3
-	WRITE_LONG 0x34 40
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow09.itm~ THEN BEGIN
-  COPY_EXISTING ~arow09.itm~ ~override~
-	WRITE_LONG 0x60 3
-	WRITE_LONG 0x34 40
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow10.itm~ THEN BEGIN
-  COPY_EXISTING ~arow10.itm~ ~override~
-	WRITE_LONG 0x60 3
-	WRITE_LONG 0x34 65
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow16.itm~ THEN BEGIN
-  COPY_EXISTING ~arow16.itm~ ~override~
-	WRITE_LONG 0x60 3
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arowkc.itm~ THEN BEGIN
-  COPY_EXISTING ~arowkc.itm~ ~override~
-	WRITE_LONG 0x60 3
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arrophe2.itm~ THEN BEGIN
-  COPY_EXISTING ~arrophe2.itm~ ~override~
-	WRITE_LONG 0x60 3
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow03.itm~ THEN BEGIN
-  COPY_EXISTING ~arow03.itm~ ~override~
-	WRITE_LONG 0x60 3
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow07.itm~ THEN BEGIN
-  COPY_EXISTING ~arow07.itm~ ~override~
-	WRITE_LONG 0x60 3
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow02.itm~ THEN BEGIN
-  COPY_EXISTING ~arow02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1001
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow02.itm~ THEN BEGIN
-  COPY_EXISTING ~arow02.itm~ ~override/arow11.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1001
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow02.itm~ THEN BEGIN
-  COPY_EXISTING ~arow02.itm~ ~override/arow15.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1001
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~arow02.itm~ THEN BEGIN
-  COPY_EXISTING ~arow02.itm~ ~override/arow1a.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1001
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~ax1h07.itm~ THEN BEGIN
-  COPY_EXISTING ~ax1h07.itm~ ~override~
-	WRITE_LONG 0x60 3
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~ax1h05.itm~ THEN BEGIN
-  COPY_EXISTING ~ax1h05.itm~ ~override~
-	WRITE_LONG 0x60 3
-	SAY NAME2 @1008
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~ax1h06.itm~ THEN BEGIN
-  COPY_EXISTING ~ax1h06.itm~ ~override~
-	WRITE_LONG 0x60 3
-	SAY NAME2 @1008
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~ax1h02.itm~ THEN BEGIN
-  COPY_EXISTING ~ax1h02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1007
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~ax1h02.itm~ THEN BEGIN
-  COPY_EXISTING ~ax1h02.itm~ ~override/ax1h11.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1007
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~blun03.itm~ THEN BEGIN
-  COPY_EXISTING ~blun03.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1009
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~blun05.itm~ THEN BEGIN
-  COPY_EXISTING ~blun05.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1010
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~blun07.itm~ THEN BEGIN
-  COPY_EXISTING ~blun07.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1011
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~blun03.itm~ THEN BEGIN
-  COPY_EXISTING ~blun03.itm~ ~override/blun13.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1009
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~blun07.itm~ THEN BEGIN
-  COPY_EXISTING ~blun07.itm~ ~override/blun15.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1011
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bolt05.itm~ THEN BEGIN
-  COPY_EXISTING ~bolt05.itm~ ~override~
-	WRITE_LONG 0x60 3
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bolt02.itm~ THEN BEGIN
-  COPY_EXISTING ~bolt02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1003
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bolt06.itm~ THEN BEGIN
-  COPY_EXISTING ~bolt02.itm~ ~override/bolt06.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1003
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bow02.itm~ THEN BEGIN
-  COPY_EXISTING ~bow02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1014
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bow04.itm~ THEN BEGIN
-  COPY_EXISTING ~bow04.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1015
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bow06.itm~ THEN BEGIN
-  COPY_EXISTING ~bow06.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1016
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bow02.itm~ THEN BEGIN
-  COPY_EXISTING ~bow02.itm~ ~override/bow16.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1014
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bow04.itm~ THEN BEGIN
-  COPY_EXISTING ~bow04.itm~ ~override/bow17.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1015
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bow06.itm~ THEN BEGIN
-  COPY_EXISTING ~bow06.itm~ ~override/bow18.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1016
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bull02.itm~ THEN BEGIN
-  COPY_EXISTING ~bull02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1005
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~bull02.itm~ THEN BEGIN
-  COPY_EXISTING ~bull02.itm~ ~override/bull03.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1005
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~dagg02.itm~ THEN BEGIN
-  COPY_EXISTING ~dagg02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1020
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~dart03.itm~ THEN BEGIN
-  COPY_EXISTING ~dart03.itm~ ~override~						
-	WRITE_LONG 0x60 3
-	WRITE_LONG 0x34 200
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~dart04.itm~ THEN BEGIN
-  COPY_EXISTING ~dart04.itm~ ~override~
-	WRITE_LONG 0x60 0
-	WRITE_LONG 0x34 100
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~dart02.itm~ THEN BEGIN
-  COPY_EXISTING ~dart02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	WRITE_LONG 0x34 20
-	SAY NAME2 @1021
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~halb02.itm~ THEN BEGIN
-  COPY_EXISTING ~halb02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1022
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~hamm02.itm~ THEN BEGIN
-  COPY_EXISTING ~hamm02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1023
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~slng02.itm~ THEN BEGIN
-  COPY_EXISTING ~slng02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1024
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sper02.itm~ THEN BEGIN
-  COPY_EXISTING ~sper02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1025
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sper02.itm~ THEN BEGIN
-  COPY_EXISTING ~sper02.itm~ ~override/sper05.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1025
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~staf02.itm~ THEN BEGIN
-  COPY_EXISTING ~staf02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1027
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~staf02.itm~ THEN BEGIN
-  COPY_EXISTING ~staf02.itm~ ~override/staf18.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1027
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h02.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1029
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h02.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h02.itm~ ~override/sw1h42.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1029
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h05.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h05.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1030
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h05.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h05.itm~ ~override/sw1h41.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1030
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h08.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h08.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1031
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h14.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h14.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1031
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h08.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h08.itm~ ~override/sw1h09.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1031
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h22.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h22.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1032
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h44.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h44.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1033
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h44.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h44.itm~ ~override/sw1h55.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1033
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h47.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h47.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1034
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h49.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h49.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1035
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h78.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h78.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1036
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h98.itm~ THEN BEGIN
-  COPY_EXISTING ~sw1h98.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1031
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw2h02.itm~ THEN BEGIN
-  COPY_EXISTING ~sw2h02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1040
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw2h02.itm~ THEN BEGIN
-  COPY_EXISTING ~sw2h02.itm~ ~override/sw2h11.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1040
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~xbow02.itm~ THEN BEGIN
-  COPY_EXISTING ~xbow02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1042
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~xbow05.itm~ THEN BEGIN
-  COPY_EXISTING ~xbow05.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1043
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~chan02.itm~ THEN BEGIN
-  COPY_EXISTING ~chan02.itm~ ~override~
-	SAY NAME2 @1044
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~chan05.itm~ THEN BEGIN
-  COPY_EXISTING ~chan05.itm~ ~override~
-	SAY NAME2 @1045
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~chan02.itm~ THEN BEGIN
-  COPY_EXISTING ~chan02.itm~ ~override/chan07.itm~
-	SAY NAME2 @1044
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~chan02.itm~ THEN BEGIN
-  COPY_EXISTING ~chan02.itm~ ~override/chan08.itm~
-	SAY NAME2 @1044
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~leat02.itm~ THEN BEGIN
-  COPY_EXISTING ~leat02.itm~ ~override~
-	SAY NAME2 @1047
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~leat05.itm~ THEN BEGIN
-  COPY_EXISTING ~leat05.itm~ ~override~
-	SAY NAME2 @1048
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~leat02.itm~ THEN BEGIN
-  COPY_EXISTING ~leat02.itm~ ~override/leat11.itm~
-	SAY NAME2 @1047
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~plyflind.itm~ THEN BEGIN
-  COPY_EXISTING ~plyflind.itm~ ~override~
-	SAY NAME2 @1050
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld02.itm~ THEN BEGIN
-  COPY_EXISTING ~shld02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1051
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~ishld02.itm~ THEN BEGIN
-  COPY_EXISTING ~ishld02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1051
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld02a.itm~ THEN BEGIN
-  COPY_EXISTING ~shld02a.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1051
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld04.itm~ THEN BEGIN
-  COPY_EXISTING ~shld04.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1052
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld04a.itm~ THEN BEGIN
-  COPY_EXISTING ~shld04a.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1052
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld06.itm~ THEN BEGIN
-  COPY_EXISTING ~shld06.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1053
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld06a.itm~ THEN BEGIN
-  COPY_EXISTING ~shld06a.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1053
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld06p.itm~ THEN BEGIN
-  COPY_EXISTING ~shld06p.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1054
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld17.itm~ THEN BEGIN
-  COPY_EXISTING ~shld17.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1055
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld17a.itm~ THEN BEGIN
-  COPY_EXISTING ~shld17a.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1055
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld02.itm~ THEN BEGIN
-  COPY_EXISTING ~shld02.itm~ ~override/shld28.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1051
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld02a.itm~ THEN BEGIN
-  COPY_EXISTING ~shld02a.itm~ ~override/shld28a.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1051
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld04.itm~ THEN BEGIN
-  COPY_EXISTING ~shld04.itm~ ~override/shld29.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1051
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld04a.itm~ THEN BEGIN
-  COPY_EXISTING ~shld04a.itm~ ~override/shld29a.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1051
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld06.itm~ THEN BEGIN
-  COPY_EXISTING ~shld06.itm~ ~override/shld30.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1051
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld06a.itm~ THEN BEGIN
-  COPY_EXISTING ~shld06a.itm~ ~override/shld30a.itm~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1051
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~quiver01.itm~ THEN BEGIN
-  COPY_EXISTING ~quiver01.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1058
-	SAY DESC @1059
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~quiver02.itm~ THEN BEGIN
-  COPY_EXISTING ~quiver02.itm~ ~override~
-	WRITE_LONG 0x60 1
-	SAY NAME2 @1060
-	SAY DESC @1061
-END
-
-//__________________________________________________________________________________
-//
-ACTION_IF GAME_IS ~bgee bg2ee eet~ THEN BEGIN
-
-  ACTION_IF FILE_EXISTS_IN_GAME ~blun36.itm~ THEN BEGIN
-	COPY_EXISTING ~blun36.itm~ ~override~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1062
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~bull07.itm~ THEN BEGIN
-	COPY_EXISTING ~bull07.itm~ ~override~
-		WRITE_LONG 0x60 3
-		WRITE_LONG 0x34 40
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~bull08.itm~ THEN BEGIN
-	COPY_EXISTING ~bull08.itm~ ~override~
-		WRITE_LONG 0x60 3
-		WRITE_LONG 0x34 40
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~bull09.itm~ THEN BEGIN
-	COPY_EXISTING ~bull09.itm~ ~override~
-		WRITE_LONG 0x60 3
-		WRITE_LONG 0x34 40
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dart09.itm~ THEN BEGIN
-	COPY_EXISTING ~dart09.itm~ ~override~
-		WRITE_LONG 0x60 3
-		WRITE_LONG 0x34 40
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dart10.itm~ THEN BEGIN
-	COPY_EXISTING ~dart10.itm~ ~override~
-		WRITE_LONG 0x60 3
-		WRITE_LONG 0x34 40
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dart11.itm~ THEN BEGIN
-	COPY_EXISTING ~dart11.itm~ ~override~
-		WRITE_LONG 0x60 3
-		WRITE_LONG 0x34 40
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~compb06.itm~ THEN BEGIN
-	COPY_EXISTING ~compb06.itm~ ~override~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1016
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~compb18.itm~ THEN BEGIN
-   ACTION_IF FILE_EXISTS_IN_GAME ~compb06.itm~ THEN BEGIN
-	COPY_EXISTING ~compb06.itm~ ~override/compb18.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1016
-   END
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~comps02.itm~ THEN BEGIN
-	COPY_EXISTING ~comps02.itm~ ~override~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1029
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~comps42.itm~ THEN BEGIN
-   ACTION_IF FILE_EXISTS_IN_GAME ~comps02.itm~ THEN BEGIN
-	COPY_EXISTING ~comps02.itm~ ~override/comps42.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1029
-   END
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~quiver05.itm~ THEN BEGIN
-	COPY_EXISTING ~quiver05.itm~ ~override~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1063
-		SAY DESC @1064
-  END
-END
-
-//__________________________________________________________________________________
-//
-ACTION_IF ENGINE_IS ~tob bg2ee eet~ THEN BEGIN
-
-  ACTION_IF FILE_EXISTS_IN_GAME ~ax1h17.itm~ THEN BEGIN
-	COPY_EXISTING ~ax1h02.itm~ ~override/ax1h17.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1065
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~blun21.itm~ THEN BEGIN
-	COPY_EXISTING ~blun05.itm~ ~override/blun21.itm~
-		WRITE_LONG 0x60 2
-		SAY NAME2 @1010
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~blun31.itm~ THEN BEGIN
-	COPY_EXISTING ~blun31.itm~ ~override~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1081
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~blun32.itm~ THEN BEGIN
-	COPY_EXISTING ~blun03.itm~ ~override/blun32.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1009
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~blun33.itm~ THEN BEGIN
-	COPY_EXISTING ~blun05.itm~ ~override/blun33.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1010
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~blun34.itm~ THEN BEGIN
-	COPY_EXISTING ~blun07.itm~ ~override/blun34.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1011
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~bolt02.itm~ THEN BEGIN
-	COPY_EXISTING ~bolt02.itm~ ~override/bolt09.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1003
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~bow02.itm~ THEN BEGIN
-	COPY_EXISTING ~bow02.itm~ ~override/bow24.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1014
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~bow04.itm~ THEN BEGIN
-	COPY_EXISTING ~bow04.itm~ ~override/bow25.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1015
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~bow06.itm~ THEN BEGIN
-	COPY_EXISTING ~bow06.itm~ ~override/bow26.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1016
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dagg02.itm~ THEN BEGIN
-	COPY_EXISTING ~dagg02.itm~ ~override/dagg15.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1020
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dagg02.itm~ THEN BEGIN
-	COPY_EXISTING ~dagg02.itm~ ~override/dagg24.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1020
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dwbolt03.itm~ THEN BEGIN
-	COPY_EXISTING ~dwbolt03.itm~ ~override~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1082
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dwblun01.itm~ THEN BEGIN
-	COPY_EXISTING ~dwblun01.itm~ ~override~
-		WRITE_LONG 0x60 3
-		SAY NAME2 @1083
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dwhalb01.itm~ THEN BEGIN
-	COPY_EXISTING ~dwhalb01.itm~ ~override~
-		WRITE_LONG 0x60 3
-		SAY NAME2 @1084
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dwsper01.itm~ THEN BEGIN
-	COPY_EXISTING ~dwsper01.itm~ ~override~
-		WRITE_LONG 0x60 3
-		SAY NAME2 @1085
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dwsw1h01.itm~ THEN BEGIN
-	COPY_EXISTING ~dwsw1h01.itm~ ~override~
-		WRITE_LONG 0x60 3
-		SAY NAME2 @1086
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dwsw1h02.itm~ THEN BEGIN
-	COPY_EXISTING ~dwsw1h02.itm~ ~override~
-		WRITE_LONG 0x60 3
-		SAY NAME2 @1087
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~halb02.itm~ THEN BEGIN
-	COPY_EXISTING ~halb02.itm~ ~override/halb07.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1022
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~halb02.itm~ THEN BEGIN
-	COPY_EXISTING ~halb02.itm~ ~override/halb12.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1022
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~hamm02.itm~ THEN BEGIN
-	COPY_EXISTING ~hamm02.itm~ ~override/hamm08.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1023
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~hamm02.itm~ THEN BEGIN
-	COPY_EXISTING ~hamm02.itm~ ~override/hamm12.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1023
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~npsw02.itm~ THEN BEGIN
-	COPY_EXISTING ~npsw02.itm~ ~override~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1089
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sper02.itm~ THEN BEGIN
-	COPY_EXISTING ~sper02.itm~ ~override/sper06.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1025
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~staf02.itm~ THEN BEGIN
-	COPY_EXISTING ~staf02.itm~ ~override/staf24.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1027
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h05.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h05.itm~ ~override/sw1h73.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1030
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h02.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h02.itm~ ~override/sw1h72.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1029
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h08.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h08.itm~ ~override/sw1h74.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1031
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h44.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h44.itm~ ~override/sw1h75.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1033
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h22.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h22.itm~ ~override/sw1h76.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1032
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw2h02.itm~ THEN BEGIN
-	COPY_EXISTING ~sw2h02.itm~ ~override/sw2h20.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1040
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~xbow02.itm~ THEN BEGIN
-	COPY_EXISTING ~xbow02.itm~ ~override/xbow07.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1042
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~xbow05.itm~ THEN BEGIN
-	COPY_EXISTING ~xbow05.itm~ ~override/xbow09.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1043
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~xbow02.itm~ THEN BEGIN
-	COPY_EXISTING ~xbow02.itm~ ~override/xbow17.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1042
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~xbow05.itm~ THEN BEGIN
-	COPY_EXISTING ~xbow05.itm~ ~override/xbow18.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1043
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~quiver01.itm~ THEN BEGIN
-	COPY_EXISTING ~quiver01.itm~ ~override/quiver03.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1058
-		SAY DESC @1059
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~quiver02.itm~ THEN BEGIN
-	COPY_EXISTING ~quiver02.itm~ ~override/quiver04.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1060
-		SAY DESC @1061
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~quiver05.itm~ THEN BEGIN
-	COPY_EXISTING ~quiver05.itm~ ~override~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1063
-		SAY DESC @1064
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~quiver05.itm~ THEN BEGIN
-	COPY_EXISTING ~quiver05.itm~ ~override/quiver06.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1063
-		SAY DESC @1064
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sper10.itm~ THEN BEGIN
-	COPY_EXISTING ~sper10.itm~ ~override~
-		WRITE_LONG 0x60 5
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~staf14.itm~ THEN BEGIN
-	COPY_EXISTING ~staf14.itm~ ~override~
-		WRITE_LONG 0x60 5
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~staf20.itm~ THEN BEGIN
-	COPY_EXISTING ~staf20.itm~ ~override~
-		WRITE_LONG 0x60 5
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h28.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h28.itm~ ~override~
-		WRITE_LONG 0x60 5
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h71.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h28.itm~ ~override~
-		WRITE_LONG 0x60 5
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h77.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h77.itm~ ~override~
-		WRITE_LONG 0x60 5
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw2h09.itm~ THEN BEGIN
-	COPY_EXISTING ~sw2h09.itm~ ~override~
-		WRITE_LONG 0x60 5
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw2h08.itm~ THEN BEGIN
-	COPY_EXISTING ~sw2h08.itm~ ~override~
-		WRITE_LONG 0x60 5
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~wamace.itm~ THEN BEGIN
-	COPY_EXISTING ~wamace.itm~ ~override~
-		WRITE_LONG 0x60 5
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~chan02.itm~ THEN BEGIN
-	COPY_EXISTING ~chan02.itm~ ~override/chan21.itm~
-		SAY NAME2 @1044
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~leat02.itm~ THEN BEGIN
-	COPY_EXISTING ~leat02.itm~ ~override/leat15.itm~
-		SAY NAME2 @1047
-  END
-END
-
-//__________________________________________________________________________________
-//
-ACTION_IF GAME_IS ~tutu bgt tob~ THEN BEGIN
-
-  ACTION_IF FILE_EXISTS_IN_GAME ~ax1h02.itm~ THEN BEGIN
-	COPY_EXISTING ~ax1h02.itm~ ~override/ax1h03.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1007
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~bull03.itm~ THEN BEGIN
-	COPY_EXISTING ~bull03.itm~ ~override/bull05.itm~
-		WRITE_LONG 0x60 2
-		SAY NAME2 @1006
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~bull03.itm~ THEN BEGIN
-	COPY_EXISTING ~bull03.itm~ ~override/bull06.itm~
-		WRITE_LONG 0x60 2
-		SAY NAME2 @1006
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~dagg02.itm~ THEN BEGIN
-	COPY_EXISTING ~dagg02.itm~ ~override/dagg03.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1020
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~halb03.itm~ THEN BEGIN
-	COPY_EXISTING ~halb03.itm~ ~override~
-		WRITE_LONG 0x60 2
-		SAY NAME2 @1068
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~hamm03.itm~ THEN BEGIN
-	COPY_EXISTING ~hamm03.itm~ ~override~
-		WRITE_LONG 0x60 3
-		SAY NAME2 @1069
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~hamm05.itm~ THEN BEGIN
-	COPY_EXISTING ~hamm05.itm~ ~override~
-		WRITE_LONG 0x60 3
-		SAY NAME2 @1070
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~leat05.itm~ THEN BEGIN
-	COPY_EXISTING ~leat05.itm~ ~override/leat07.itm~
-		SAY NAME2 @1048
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~leat05.itm~ THEN BEGIN
-	COPY_EXISTING ~leat05.itm~ ~override/leat07_.itm~
-		SAY NAME2 @1048
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~leat02.itm~ THEN BEGIN
-	COPY_EXISTING ~leat02.itm~ ~override/leat12.itm~
-		SAY NAME2 @1047
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~leat05.itm~ THEN BEGIN
-	COPY_EXISTING ~leat05.itm~ ~override/leat15.itm~
-		SAY NAME2 @1048
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~plat02.itm~ THEN BEGIN
-	COPY_EXISTING ~plat02.itm~ ~override~
-		SAY NAME2 @1072
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~plat05.itm~ THEN BEGIN
-	COPY_EXISTING ~plat05.itm~ ~override~
-		SAY NAME2 @1073
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~plat10.itm~ THEN BEGIN
-	COPY_EXISTING ~plat10.itm~ ~override~
-		SAY NAME2 @1072
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~plat14.itm~ THEN BEGIN
-	COPY_EXISTING ~plat14.itm~ ~override~
-		SAY NAME2 @1073
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~plat10.itm~ THEN BEGIN
-	COPY_EXISTING ~plat10.itm~ ~override/plat19.itm~
-		SAY NAME2 @1072
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~plat14.itm~ THEN BEGIN
-	COPY_EXISTING ~plat14.itm~ ~override/plat23.itm~
-		SAY NAME2 @1074
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~shld19.itm~ THEN BEGIN
-	COPY_EXISTING ~shld19.itm~ ~override~
-		WRITE_LONG 0x60 2
-		SAY NAME2 @1075
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~slng02.itm~ THEN BEGIN
-	COPY_EXISTING ~slng02.itm~ ~override/slng03.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1024
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~slng02.itm~ THEN BEGIN
-	COPY_EXISTING ~slng02.itm~ ~override/slng04.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1024
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~slng02.itm~ THEN BEGIN
-	COPY_EXISTING ~slng02.itm~ ~override/slng10.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1024
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h06.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h06.itm~ ~override~
-		WRITE_LONG 0x60 3
-		SAY NAME2 @1077
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h08.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h08.itm~ ~override/sw1h29.itm~
-		WRITE_LONG 0x60 1
-		SAY NAME2 @1031
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~sw1h52.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h52.itm~ ~override~
-		WRITE_LONG 0x60 3
-		SAY NAME2 @1079
-  END
-  ACTION_IF FILE_EXISTS_IN_GAME ~ring41.itm~ THEN BEGIN
-	COPY_EXISTING ~ring41.itm~ ~override~
-		SAY NAME2 @1102
-  END
-END
-//__________________________________________________________________________________
-
-
-//ITEM NAMES PATCH__________________________________________________________________
-//
-COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
-	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-		READ_LONG 0x0c "valid"
-		PATCH_IF (%valid% >= 0) BEGIN // verify name is valid
-			READ_STRREF 0x0c "name"
-			PATCH_IF (~%name%~ STRING_CONTAINS_REGEXP ~\+[1-6]~) = 0 BEGIN
-				INNER_PATCH_SAVE new_name ~%name%~ BEGIN
-					REPLACE_TEXTUALLY ~ \+[1-6]~ ~~
-				END
-				SAY_EVALUATED 0x0c ~%new_name%~
-			END
-		END
-	END
-//__________________________________________________________________________________
-
-
-ACTION_IF FILE_EXISTS_IN_GAME ~blun23.itm~ THEN BEGIN
-	COPY_EXISTING ~blun23.itm~ ~override~
-		SAY NAME2 @1095
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~blun24.itm~ THEN BEGIN
-	COPY_EXISTING ~blun24.itm~ ~override~
-		SAY NAME2 @1096
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~clck02.itm~ THEN BEGIN
-	COPY_EXISTING ~clck02.itm~ ~override~
-		SAY NAME2 @1097
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~halb08.itm~ THEN BEGIN
-	COPY_EXISTING ~halb08.itm~ ~override~
-		SAY NAME2 @1098
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~halb09.itm~ THEN BEGIN
-	COPY_EXISTING ~halb09.itm~ ~override~
-		SAY NAME2 @1099
-		WRITE_LONG 0x60 5
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~hamm04.itm~ THEN BEGIN
-	COPY_EXISTING ~hamm04.itm~ ~override~
-		SAY NAME2 @1100
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~npsw02.itm~ THEN BEGIN
-	COPY_EXISTING ~npsw02.itm~ ~override~
-		SAY NAME2 @1089
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~ring07.itm~ THEN BEGIN
-	COPY_EXISTING ~ring07.itm~ ~override~
-		SAY NAME2 @1101
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~shld07.itm~ THEN BEGIN
-	COPY_EXISTING ~shld07.itm~ ~override~
-		SAY NAME2 @1103
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sper08.itm~ THEN BEGIN
-	COPY_EXISTING ~sper08.itm~ ~override~
-		SAY NAME2 @1104
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sper09.itm~ THEN BEGIN
-	COPY_EXISTING ~sper09.itm~ ~override~
-		SAY NAME2 @1105
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h03.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h03.itm~ ~override~
-		SAY NAME2 @1106
-END
-ACTION_IF FILE_EXISTS_IN_GAME ~sw1h23.itm~ THEN BEGIN
-	COPY_EXISTING ~sw1h23.itm~ ~override~
-		SAY NAME2 @1107
-END
-//__________________________________________________________________________________
-
-END		//		end no IWDEE
+LAF no_magic_weapons END
 
 
 
 //__________________________________________________________________________________
 //__________________________________________________________________________________
 //
-//						no spell level scaling
+//						no spell level scaling [SD]
 //__________________________________________________________________________________
 //__________________________________________________________________________________
 
@@ -1053,36 +55,9 @@ END		//		end no IWDEE
 BEGIN @200 
 DESIGNATED 200
 
+INCLUDE ~low_magic/components/200_no_spell_scaling.tpa~
 
-//__________________________________________________________________________________
-//
-COPY_EXISTING_REGEXP GLOB ~^.+\.spl$~ ~override~
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 2 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 3 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 4 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 5 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 6 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 7 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 8 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 9 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 10 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 11 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 12 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 13 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 14 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 15 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 16 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 17 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 18 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 19 END
-	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 20 END
-BUT_ONLY
-
-/*
-ALSO: need to do MAJOR description patching... in the "Duration: " field, but also in bodies of spell descriptions, to remove all mention of level scaling and durations. 
-Looks like a YUGE PITA :(
-*/
-//__________________________________________________________________________________
+LAF no_spell_scaling END
 
 
 
@@ -1102,190 +77,16 @@ INCLUDE ~low_magic/low_magic.ini~
 
 LAM set_spell_durations
 
-//__________________________________________________________________________________
-//
-OUTER_SET new_short_duration 		= (%short_duration_rounds% * 6)
-OUTER_SET new_medium_duration		= (%medium_duration_rounds% * 6)
-OUTER_SET new_long_duration			= (%long_duration_turns% * 60)
-OUTER_SET new_all_day_duration 		= (%day_duration_hours% * 300)
-//__________________________________________________________________________________
+INCLUDE ~low_magic/components/300_reduced_spell_durations.tpa~
 
-//use game install language for word matching_______________________________________
-//
-ACTION_IF NOT VARIABLE_IS_SET %EE_LANGUAGE% BEGIN
-  COPY_EXISTING ~spwi101.spl~ ~override~
-	READ_STRREF 0x50 description_string
-  BUT_ONLY
-  ACTION_FOR_EACH lang IN ~en_US~ ~fr_FR~ ~pl_PL~ /*~de_DE~ ~es_ES~ ~cs_CZ~ ~ru_RU~ ~ko_KR~*/ BEGIN
-	WITH_TRA ~low_magic/language/%lang%/descriptions.tra~ BEGIN
-	  OUTER_SPRINT duration_lang @3000	//	USING_TRA ~low_magic/language/%lang%/descriptions.tra~
-	END	
-	ACTION_IF NOT (~%description_string%~ STRING_CONTAINS_REGEXP ~%duration_lang%~) BEGIN
-	  OUTER_SPRINT game_lang ~%lang%~
-	END
-  END
-END
-ACTION_IF VARIABLE_IS_SET %EE_LANGUAGE% BEGIN
-  OUTER_SPRINT ee_lang ~%EE_LANGUAGE%~
-  ACTION_IF FILE_EXISTS ~low_magic/language/%ee_lang%/descriptions.tra~ BEGIN
-	OUTER_SPRINT game_lang ~%EE_LANGUAGE%~
-  END
-END
-ACTION_IF NOT VARIABLE_IS_SET %game_lang% BEGIN
-	OUTER_SPRINT game_lang ~en_US~
-END
-//__________________________________________________________________________________
-
-
-//patch spells______________________________________________________________________
-//
-WITH_TRA ~low_magic/language/%game_lang%/descriptions.tra~ BEGIN
-	OUTER_SPRINT duration_line @3000
-	OUTER_SPRINT duration_string @3001
-END
-
-OUTER_SET short = 0
-OUTER_SET medium = 0
-OUTER_SET long = 0
-OUTER_SET day = 0
-
-COPY_EXISTING_REGEXP GLOB ~^.+\.spl$~ ~override~
-  SET short = 0
-  SET medium = 0
-  SET long = 0
-  SET day = 0
-  READ_LONG 0x50 description
-  READ_LONG 0x64 header_offset
-  READ_SHORT 0x68 header_count
-  READ_LONG 0x6a effect_offset
-  FOR (header = 0; header < header_count ; ++header) BEGIN
-	READ_SHORT (header_offset + (header * 0x28) + 0x1e) effect_count
-	READ_SHORT (header_offset + (header * 0x28) + 0x20) effect_index
-	FOR (effect = 0; effect < effect_count; ++effect) BEGIN
-	  READ_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) old_duration
-	  PATCH_IF (old_duration < 61) BEGIN
-		PATCH_IF (old_duration > 2) BEGIN
-		  SET short = 1
-		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_short_duration
-		END
-	  END
-	  PATCH_IF (old_duration > 60) AND (old_duration < 301) BEGIN
-		  SET medium = 1
-		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_medium_duration
-	  END
-	  PATCH_IF (old_duration > 300) AND (old_duration < 901) BEGIN
-		  SET long = 1
-		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_long_duration
-	  END
-	  PATCH_IF (old_duration > 900) BEGIN
-		  SET day = 1
-		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_all_day_duration
-	  END
-	END
-  END
-  PATCH_IF (%short% = 1) BEGIN
-	  PATCH_IF (%description% >= 0) BEGIN // verify desc is valid
-		READ_STRREF 0x50 ~description_string~
-		INNER_PATCH_SAVE new_description ~%description_string%~ BEGIN
-		  REPLACE_TEXTUALLY ~%duration_line%~ ~%duration_string%%short_duration_rounds% rounds~
-		END
-		SAY_EVALUATED 0x50 ~%new_description%~
-	  END
-  END
-  PATCH_IF (%medium% = 1) BEGIN
-	  PATCH_IF (%description% >= 0) BEGIN // verify desc is valid
-		READ_STRREF 0x50 ~description_string~
-		INNER_PATCH_SAVE new_description ~%description_string%~ BEGIN
-		  REPLACE_TEXTUALLY ~%duration_line%~ ~%duration_string%%medium_duration_rounds% rounds~
-		END
-		SAY_EVALUATED 0x50 ~%new_description%~
-	  END
-  END
-  PATCH_IF (%long% = 1) BEGIN
-	  PATCH_IF (%description% >= 0) BEGIN // verify desc is valid
-		READ_STRREF 0x50 ~description_string~
-		INNER_PATCH_SAVE new_description ~%description_string%~ BEGIN
-		  REPLACE_TEXTUALLY ~%duration_line%~ ~%duration_string%%long_duration_turns% turns~
-		END
-		SAY_EVALUATED 0x50 ~%new_description%~
-	  END
-  END
-  PATCH_IF (%day% = 1) BEGIN
-	  PATCH_IF (%description% >= 0) BEGIN // verify desc is valid
-		READ_STRREF 0x50 ~description_string~
-		INNER_PATCH_SAVE new_description ~%description_string%~ BEGIN
-		  REPLACE_TEXTUALLY ~%duration_line%~ ~%duration_string%%day_duration_hours% hours~
-		END
-		SAY_EVALUATED 0x50 ~%new_description%~
-	  END
-  END
-  SET short = 0
-  SET medium = 0
-  SET long = 0
-  SET day = 0
-BUT_ONLY
-//__________________________________________________________________________________
-
-
-//fix entangle/web/cloud spells & projectiles_______________________________________
-//
-ACTION_IF FILE_EXISTS_IN_GAME ~sppr105.spl~ BEGIN
-  COPY_EXISTING ~sppr105.spl~ ~override~
-	LPF ALTER_EFFECT INT_VAR match_duration = 18 duration = 9 END
-END
-	
-ACTION_IF FILE_EXISTS_IN_GAME ~sppr250.spl~ BEGIN
-  COPY_EXISTING ~sppr250.spl~ ~override~
-	LPF ALTER_EFFECT INT_VAR match_duration = 18 duration = 6 END
-END
-	
-ACTION_IF FILE_EXISTS_IN_GAME ~spwi213.spl~ BEGIN
-  COPY_EXISTING ~spwi213.spl~ ~override~
-	LPF ALTER_EFFECT INT_VAR match_duration = 18 duration = 9 END
-END
-
-ACTION_IF FILE_EXISTS_IN_GAME ~spwi215.spl~ BEGIN
-  COPY_EXISTING ~spwi215.spl~ ~override~
-	LPF ALTER_EFFECT INT_VAR match_duration = 18 duration = 7 END
-END
-
-COPY_EXISTING_REGEXP GLOB ~^.+\.pro$~ ~override~
-  PATCH_IF (SOURCE_SIZE > 0x215) BEGIN
-	READ_BYTE 0x216 pro_reps
-	PATCH_IF (pro_reps > 3) BEGIN
-	  WRITE_BYTE 0x216 3
-	END
-  END
-BUT_ONLY
-
-/*
-COPY_EXISTING ~web.pro~ ~override~
-	WRITE_BYTE 0x216 3
-
-COPY_EXISTING ~cloud.pro~ ~override~
-	WRITE_BYTE 0x216 3
-
-COPY_EXISTING ~pfield.pro~ ~override~
-	WRITE_BYTE 0x216 3
-
-COPY_EXISTING ~cloudkil.pro~ ~override~
-	WRITE_BYTE 0x216 3
-
-COPY_EXISTING ~1pdeathf.pro~ ~override~
-	WRITE_BYTE 0x216 3
-
-COPY_EXISTING ~1pincind.pro~ ~override~
-	WRITE_BYTE 0x216 3
-*/
-//__________________________________________________________________________________
-
+LAF reduced_spell_durations END
 
 
 
 //__________________________________________________________________________________
 //__________________________________________________________________________________
 //
-//					 	more expensive scrolls
+//					 	more expensive scrolls [SD]
 //__________________________________________________________________________________
 //__________________________________________________________________________________
 
@@ -1298,19 +99,12 @@ INCLUDE ~low_magic/low_magic.ini~
 
 LAM set_scroll_prices
 
-//__________________________________________________________________________________
-//
-COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
-  PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-	READ_LONG 0x1c item_type
-	PATCH_IF (%item_type% = 11) BEGIN
-	  READ_LONG 0x34 scroll_price
-	  WRITE_LONG 0x34 (%scroll_price% * %scroll_price_multiplier%)
-	END
-  END
-BUT_ONLY
-//__________________________________________________________________________________
+INCLUDE ~low_magic/components/401_multiplied_scroll_prices.tpa~
 
+LAF multiplied_scroll_prices END
+
+
+//__________________________________________________________________________________
 
 BEGIN @402 
 DESIGNATED 402
@@ -1320,50 +114,14 @@ INCLUDE ~low_magic/low_magic.ini~
 
 LAM set_scroll_prices
 
+INCLUDE ~low_magic/components/402_level_based_scroll_prices.tpa~
+
+LAF level_based_scroll_prices END
+
+
 //__________________________________________________________________________________
 //
-COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
- PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-  READ_SHORT 0x1c item_type
-  PATCH_IF (%item_type% = 11) BEGIN
-	READ_LONG 0x34 scroll_price
-	READ_LONG 0x64 header_offset
-	READ_SHORT 0x68 header_count
-	READ_LONG 0x6a effect_offset
-	SET spell_level = 0
-	SET scroll_level_price = 0
-	SET can_learn = 0
-	  FOR (header = 0; header < header_count ; ++header) BEGIN
-		SET this_header = 0
-		READ_SHORT (header_offset + (header * 0x38) + 0x1e) effect_count
-		READ_SHORT (header_offset + (header * 0x38) + 0x20) effect_index
-		FOR (effect = 0; effect < effect_count; ++effect) BEGIN
-		  READ_SHORT (effect_offset + (effect_index + effect)* 0x30) opcode
-		  PATCH_IF (opcode = 147) AND (this_header = 0) BEGIN
-			READ_ASCII (effect_offset + 0x14 + (effect_index + effect)* 0x30) resref_cast
-			INNER_PATCH_FILE ~%resref_cast%.spl~ BEGIN
-			  READ_SHORT 0x1c type
-			  READ_SHORT 0x34 cast_spell_level
-			END
-			PATCH_IF (type = 1) OR (type = 2) BEGIN // spell scroll
-			  SET this_header = 1
-			  SET can_learn = 1
-			END
-		  END
-		END
-	  END
-	  PATCH_IF (can_learn = 1) BEGIN
-		SET spell_level = %cast_spell_level%
-		SET scroll_level_price = ((%spell_level% ** %scroll_spell_level_exponent%) * %scroll_spell_level_multiplier%)
-		WRITE_LONG 0x34 %scroll_level_price%
-	  END
-	  ELSE BEGIN
-		SET new_scroll_price = (%scroll_price% * %scroll_price_multiplier%)
-		WRITE_LONG 0x34 %new_scroll_price%
-	  END
-	END
-  END
-BUT_ONLY
+
 //__________________________________________________________________________________
 
 //__________________________________________________________________________________
@@ -1374,191 +132,44 @@ BUT_ONLY
 //__________________________________________________________________________________
 
 
-BEGIN @500 
-DESIGNATED 500
+BEGIN @501 
+DESIGNATED 501
 SUBCOMPONENT @500
 
 INCLUDE ~low_magic/low_magic.ini~
 
-//Wand of Fear 
-COPY ~Implements/data/QDWAND02.itm~ ~override/WAND02.itm~ //wand of fear
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5010
-	SAY IDENTIFIED_DESC @5011 
-	
-COPY ~Implements/data/QDWNDFR.spl~ ~override/QDWNDFR.spl~ //save vs wand -2 or fear 12 sec
-	
+INCLUDE ~low_magic/components/501_weaponized_wands.tpa~
 
-//Wand of Missiles 
-COPY ~Implements/data/QDWAND03.itm~ ~override/WAND03.itm~ 
-	 ~Implements/data/QDWAND03.itm~ ~override/WAND12.itm~ 
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	SAY NAME2 @5020
-	SAY IDENTIFIED_DESC @5021 
-	
-COPY ~Implements/data/QDWNDMM.spl~ ~override/QDWNDMM.spl~ //wand of magic missiles spl [d3 magic damage] 
-	
-	//patch shield to give immunity
-	
-//Wand of Paralyzation 
-COPY ~Implements/data/QDWAND04.itm~ ~override/WAND04.itm~ //wand of paralyzation
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5030
-	SAY IDENTIFIED_DESC @5031 
-	
-COPY ~Implements/data/QDWNDST.spl~ ~override/QDWNDST.spl~ //save vs wand -2 or stun 6 sec
+LAF weaponized_wands END
 
-//Wand of Fire 
-COPY ~Implements/data/QDWAND05.itm~ ~override/WAND05.itm~ //wand of fear
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5040
-	SAY IDENTIFIED_DESC @5041 
-	
-COPY ~Implements/data/QDWNDFI.spl~ ~override/QDWNDFI.spl~ //2d4 fire damage; save vs wand -2 for half 
-
-//Wand of Frost 
-COPY ~Implements/data/QDWAND06.itm~ ~override/WAND06.itm~ //wand of frost
-     ~Implements/data/QDWAND06.itm~ ~override/WANDFRE.itm~ //wand of freezing death [temporary]
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5050
-	SAY IDENTIFIED_DESC @5051 
-	
-COPY ~Implements/data/QDWNDCO.spl~ ~override/QDWNDCO.spl~ //1d4 cold damage; save vs wand -2 or slow 12 seconds
-
-//Wand of Lightning
-COPY ~Implements/data/QDWAND07.itm~ ~override/WAND07.itm~ //wand of lightning
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5060
-	SAY IDENTIFIED_DESC @5061
-	
-COPY ~Implements/data/QDWNDLI.spl~ ~override/QDWNDLI.spl~ //1d6 electric damage
-
-//Wand of Sleep 
-COPY ~Implements/data/QDWAND08.itm~ ~override/WAND08.itm~ //wand of sleep
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5070
-	SAY IDENTIFIED_DESC @5071
-	
-COPY ~Implements/data/QDWNDSL.spl~ ~override/QDWNDSL.spl~ //save vs wand -2 or sleep 12 sec [damage interrupted] 
-	 ~Implements/data/QDWNDSL.eff~ ~override/QDWNDSL.eff~ //prot from spell, for elves/half-elves
-
-//Wand of Polymorphing 
-COPY ~Implements/data/QDWAND09.itm~ ~override/WAND09.itm~ //wand of polymorphing
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5080
-	SAY IDENTIFIED_DESC @5081 
-	
-COPY ~Implements/data/QDWNDPL.spl~ ~override/QDWNDPL.spl~ //save vs wand -2 or poly for 7 sec
-
-//Wand of the Heavens 
-COPY ~Implements/data/QDWAND11.itm~ ~override/WAND11.itm~ //wand of the heavens
-	 ~Implements/data/QDWAND11.itm~ ~override/TTWAND.itm~ //tutorial wand of heavens
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5090
-	SAY IDENTIFIED_DESC @5091
-	
-COPY ~Implements/data/QDWNDHV.spl~ ~override/QDWNDHV.spl~ //d4 fire damage; +d4 magic vs evil 
-	 ~Implements/data/QDWNDHV.eff~ ~override/QDWNDHV.eff~ //d4 magic damage vs. evil 
-	 
-//Wand of Cloudkill
-COPY ~Implements/data/QDWAND13.itm~ ~override/WAND13.itm~ //wand of cloudkill
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5100
-	SAY IDENTIFIED_DESC @5101
-	
-COPY ~Implements/data/QDWNDCK.spl~ ~override/QDWNDCK.spl~ //1d6 poison damage; save vs wand -2 or slay 6 HD
-
-
-//Wand of Summoning 
-COPY ~Implements/data/QDWAND10.itm~ ~override/WAND10.itm~ //wand of summoning
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5110
-	SAY IDENTIFIED_DESC @5111 
-	
-COPY ~Implements/data/QDWNDSU.spl~ ~override/QDWNDSU.spl~ //summon monsum02 cre for 12 seconds
-
-//Wand of Cursing 
-COPY ~Implements/data/QDWAND19.itm~ ~override/WAND19.itm~ //wand of curses
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5120
-	SAY IDENTIFIED_DESC @5121 
-	
-COPY ~Implements/data/QDWNDC1.spl~ ~override/QDWNDC1.spl~ //save vs wand -2 or silence for 12 seconds
-COPY ~Implements/data/QDWNDC2.spl~ ~override/QDWNDC2.spl~ //save vs wand -2 or blind for 12 seconds
-
-//Wand of Spellstriking 
-COPY ~Implements/data/QDWAND18.itm~ ~override/WAND18.itm~ //wand of spellstriking
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5130
-	SAY IDENTIFIED_DESC @5131 
-	
-COPY ~Implements/data/QDWNDS1.spl~ ~override/QDWNDS1.spl~ //save vs wand -2 or remove combat/specific protections
-COPY ~Implements/data/QDWNDS2.spl~ ~override/QDWNDS2.spl~ //save vs wand -2 or remove spell protections
-
-//IWD: Wand of Armory [currently interrupts spellcasting] 
-/*
-COPY ~Implements/data/QDWNDARM.itm~ ~override/WANDARM.itm~ //wand of armory
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5140
-	SAY IDENTIFIED_DESC @5141 
-	
-COPY ~Implements/data/QDWNDA1.spl~ ~override/QDWNDA1.spl~ //+2 AC; imm to magic missiles for 12 seconds 
-*/
-
-//IWD: Wand of Corrosion 
-COPY ~Implements/data/QDWNDCOR.itm~ ~override/WANDCOR.itm~ //wand of corrosion
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5150
-	SAY IDENTIFIED_DESC @5151 
-	
-COPY ~Implements/data/QDWNDCR.spl~ ~override/QDWNDCR.spl~ //1d4 acid damage; save vs wand -2 or -2 AC for 1 round 
-
-//IWD: Wand of Many Missiles 
-COPY ~Implements/data/QDWANDMM.itm~ ~override/WANDMIS.itm~ //wand of many missiles
-	SAY NAME1 @5005 
-	SAY UNIDENTIFIED_DESC @5006
-	
-	SAY NAME2 @5160
-	SAY IDENTIFIED_DESC @5161 
-	
-	
-//Convert the following to rods or other appropriate items 
-// SoD: Wand of Water Elemental Summoning -> Bowl of Water Elementals 
-// IWD: Wand of Trap Detection -> ??? [Goggles of Trap Detection?] 
 
 //__________________________________________________________________________________
 //__________________________________________________________________________________
 //
-//					 	slower non-caster XP tables
+//					 	reduced wand charges [luke93]
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+BEGIN @502
+DESIGNATED 502
+SUBCOMPONENT @500
+
+INCLUDE ~low_magic/lib/item_charge_functions.tpa~
+
+INCLUDE ~low_magic/low_magic.ini~
+
+LAM set_wand_charge_limits
+
+INCLUDE ~low_magic/components/502_reduced_wand_charges.tpa~
+
+LAF reduced_wand_charges END
+
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//					 	slower non-caster XP tables [SD]
 //__________________________________________________________________________________
 //__________________________________________________________________________________
 
@@ -1566,27 +177,9 @@ COPY ~Implements/data/QDWANDMM.itm~ ~override/WANDMIS.itm~ //wand of many missil
 BEGIN @600 
 DESIGNATED 600
 
+INCLUDE ~low_magic/components/600_slower_noncaster_xp.tpa~
 
-//__________________________________________________________________________________
-//
-//	this puts thieves and bards onto the fighter advancement table, and fighters onto the paladin table
-//
-COPY_EXISTING ~xplevel.2da~ ~override~
-  COUNT_2DA_COLS cols
-  PATCH_IF GAME_IS ~bgee~ BEGIN
-	SET cols = (%cols% -1)
-  END
-  FOR (col = 1; col < cols; ++col) BEGIN
-	READ_2DA_ENTRY 1 col cols fthac0			//		read fighter = row 1
-	SET_2DA_ENTRY  6 col cols %fthac0%			//		write thief = row 6
-	SET_2DA_ENTRY  7 col cols %fthac0%			//		write bard = row 7
-  END
-  FOR (col = 1; col < cols; ++col) BEGIN
-	READ_2DA_ENTRY 2 col cols rthac0			//		read ranger = row 2
-	SET_2DA_ENTRY 1 col cols %rthac0%			//		write fighter = row 1
-  END
-BUT_ONLY
-//__________________________________________________________________________________
+LAF slower_noncaster_xp END
 
 
 
@@ -1606,50 +199,12 @@ INCLUDE ~low_magic/low_magic.ini~
 
 LAM set_item_slot_behavior
 
-//makes items use the amulet slot
-COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
-	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-		READ_SHORT 0x1c type
-		//amulets
-		PATCH_IF ((type = 1) AND (qd_rmis_amulet = 1)) BEGIN
-			WRITE_SHORT 0x1c 0x1
-		END
-		//belts
-		PATCH_IF ((type = 3) AND (qd_rmis_belt = 1)) BEGIN
-			WRITE_SHORT 0x1c 0x1
-		END
-		//boots 
-		PATCH_IF ((type = 4) AND (qd_rmis_boots = 1)) BEGIN
-			WRITE_SHORT 0x1c 0x1
-		END
-		//gloves
-		PATCH_IF ((type = 6) AND (qd_rmis_gloves = 1)) BEGIN
-			WRITE_SHORT 0x1c 0x1
-		END
-		//helms
-		PATCH_IF ((type = 7) AND (qd_rmis_helm = 1)) BEGIN
-			WRITE_SHORT 0x1c 0x1
-		END
-		//rings
-		PATCH_IF ((type = 10) AND (qd_rmis_ring = 1)) BEGIN
-			WRITE_SHORT 0x1c 0x1
-		END
-		//cloaks
-		PATCH_IF ((type = 32) AND (qd_rmis_cloak = 1)) BEGIN
-			WRITE_SHORT 0x1c 0x1
-		END
-   END
-BUT_ONLY
+INCLUDE ~low_magic/components/701_one_magic_item_slot.tpa~
 
-//updating amulet sounds
-ACTION_IF (NOT GAME_IS ~iwdee~) BEGIN 
-	COPY_EXISTING ~GAM_13A.wav~ ~override/GAM_14A.wav~ 
-	COPY_EXISTING ~GAM_13B.wav~ ~override/GAM_14B.wav~ 
-END ELSE BEGIN 
-	COPY_EXISTING ~GAM_13A.wav~ ~override/G_NECK1.wav~ 
-	COPY_EXISTING ~GAM_13B.wav~ ~override/G_NECK2.wav~
-END 
+LAF one_magic_item_slot END
 
+
+//__________________________________________________________________________________
 
 BEGIN @702 
 DESIGNATED 702
@@ -1659,48 +214,6 @@ INCLUDE ~low_magic/low_magic.ini~
 
 LAM set_item_slot_behavior
 
-//makes items use the ring slots
-COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
-	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
-		READ_SHORT 0x1c type
-		//amulets
-		PATCH_IF ((type = 1) AND (qd_rmis_amulet = 1)) BEGIN
-			WRITE_SHORT 0x1c 0xa
-		END
-		//belts
-		PATCH_IF ((type = 3) AND (qd_rmis_belt = 1)) BEGIN
-			WRITE_SHORT 0x1c 0xa
-		END
-		//boots 
-		PATCH_IF ((type = 4) AND (qd_rmis_boots = 1)) BEGIN
-			WRITE_SHORT 0x1c 0xa
-		END
-		//gloves
-		PATCH_IF ((type = 6) AND (qd_rmis_gloves = 1)) BEGIN
-			WRITE_SHORT 0x1c 0xa
-		END
-		//helms
-		PATCH_IF ((type = 7) AND (qd_rmis_helm = 1)) BEGIN
-			WRITE_SHORT 0x1c 0xa
-		END
-		//rings
-		PATCH_IF ((type = 10) AND (qd_rmis_ring = 1)) BEGIN
-			WRITE_SHORT 0x1c 0xa
-		END
-		//cloaks
-		PATCH_IF ((type = 32) AND (qd_rmis_cloak = 1)) BEGIN
-			WRITE_SHORT 0x1c 0xa
-		END
-   END
-BUT_ONLY
+INCLUDE ~low_magic/components/702_two_magic_item_slots.tpa~
 
-//updating ring sounds
-ACTION_IF (NOT GAME_IS ~iwdee~) BEGIN 
-	COPY_EXISTING ~GAM_13A.wav~ ~override/GAM_43A.wav~ 
-	COPY_EXISTING ~GAM_13B.wav~ ~override/GAM_43B.wav~ 
-END ELSE BEGIN 
-	COPY_EXISTING ~GAM_13A.wav~ ~override/G_RING1.wav~ 
-	COPY_EXISTING ~GAM_13B.wav~ ~override/G_RING2.wav~
-END 
-
-
+LAF two_magic_item_slots END

@@ -1,0 +1,22 @@
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//							
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+DEFINE_ACTION_FUNCTION multiplied_scroll_prices BEGIN
+
+ COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+	READ_LONG 0x1c item_type
+	PATCH_IF (%item_type% = 11) BEGIN
+	  READ_LONG 0x34 scroll_price
+	  WRITE_LONG 0x34 (%scroll_price% * %scroll_price_multiplier%)
+	END
+  END
+ BUT_ONLY
+
+END

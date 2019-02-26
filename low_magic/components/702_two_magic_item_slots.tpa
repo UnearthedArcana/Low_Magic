@@ -1,0 +1,56 @@
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//							
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+DEFINE_ACTION_FUNCTION two_magic_item_slots BEGIN
+
+// makes items use the ring slots
+  COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+		READ_SHORT 0x1c type
+		//amulets
+		PATCH_IF ((type = 1) AND (qd_rmis_amulet = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//belts
+		PATCH_IF ((type = 3) AND (qd_rmis_belt = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//boots 
+		PATCH_IF ((type = 4) AND (qd_rmis_boots = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//gloves
+		PATCH_IF ((type = 6) AND (qd_rmis_gloves = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//helms
+		PATCH_IF ((type = 7) AND (qd_rmis_helm = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//rings
+		PATCH_IF ((type = 10) AND (qd_rmis_ring = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+		//cloaks
+		PATCH_IF ((type = 32) AND (qd_rmis_cloak = 1)) BEGIN
+			WRITE_SHORT 0x1c 0xa
+		END
+	END
+  BUT_ONLY
+
+// updating ring sounds
+  ACTION_IF (NOT GAME_IS ~iwdee~) BEGIN 
+	COPY_EXISTING ~GAM_13A.wav~ ~override/GAM_43A.wav~ 
+	COPY_EXISTING ~GAM_13B.wav~ ~override/GAM_43B.wav~ 
+  END ELSE BEGIN 
+	COPY_EXISTING ~GAM_13A.wav~ ~override/G_RING1.wav~ 
+	COPY_EXISTING ~GAM_13B.wav~ ~override/G_RING2.wav~
+  END 
+
+END

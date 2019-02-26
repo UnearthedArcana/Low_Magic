@@ -1,0 +1,56 @@
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//							
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+DEFINE_ACTION_FUNCTION one_magic_item_slot BEGIN
+
+//makes items use the amulet slot
+  COPY_EXISTING_REGEXP GLOB ~.*\.itm~ ~override~
+	PATCH_IF (SOURCE_SIZE > 0x71) BEGIN
+		READ_SHORT 0x1c type
+		//amulets
+		PATCH_IF ((type = 1) AND (qd_rmis_amulet = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//belts
+		PATCH_IF ((type = 3) AND (qd_rmis_belt = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//boots 
+		PATCH_IF ((type = 4) AND (qd_rmis_boots = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//gloves
+		PATCH_IF ((type = 6) AND (qd_rmis_gloves = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//helms
+		PATCH_IF ((type = 7) AND (qd_rmis_helm = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//rings
+		PATCH_IF ((type = 10) AND (qd_rmis_ring = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+		//cloaks
+		PATCH_IF ((type = 32) AND (qd_rmis_cloak = 1)) BEGIN
+			WRITE_SHORT 0x1c 0x1
+		END
+	END
+  BUT_ONLY
+
+//updating amulet sounds
+  ACTION_IF (NOT GAME_IS ~iwdee~) BEGIN 
+	COPY_EXISTING ~GAM_13A.wav~ ~override/GAM_14A.wav~ 
+	COPY_EXISTING ~GAM_13B.wav~ ~override/GAM_14B.wav~ 
+  END ELSE BEGIN 
+	COPY_EXISTING ~GAM_13A.wav~ ~override/G_NECK1.wav~ 
+	COPY_EXISTING ~GAM_13B.wav~ ~override/G_NECK2.wav~
+  END 
+
+END

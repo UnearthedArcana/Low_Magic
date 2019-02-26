@@ -1,0 +1,188 @@
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//							
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+DEFINE_ACTION_FUNCTION weaponized_wands BEGIN
+
+
+//Wand of Fear 
+COPY ~low_magic/data/QDWAND02.itm~ ~override/WAND02.itm~ //wand of fear
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5010
+	SAY IDENTIFIED_DESC @5011 
+	
+COPY ~low_magic/data/QDWNDFR.spl~ ~override/QDWNDFR.spl~ //save vs wand -2 or fear 12 sec
+	
+
+//Wand of Missiles 
+COPY ~low_magic/data/QDWAND03.itm~ ~override/WAND03.itm~ 
+	 ~low_magic/data/QDWAND03.itm~ ~override/WAND12.itm~ 
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	SAY NAME2 @5020
+	SAY IDENTIFIED_DESC @5021 
+	
+COPY ~low_magic/data/QDWNDMM.spl~ ~override/QDWNDMM.spl~ //wand of magic missiles spl [d3 magic damage] 
+	
+	//patch shield to give immunity
+	
+//Wand of Paralyzation 
+COPY ~low_magic/data/QDWAND04.itm~ ~override/WAND04.itm~ //wand of paralyzation
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5030
+	SAY IDENTIFIED_DESC @5031 
+	
+COPY ~low_magic/data/QDWNDST.spl~ ~override/QDWNDST.spl~ //save vs wand -2 or stun 6 sec
+
+//Wand of Fire 
+COPY ~low_magic/data/QDWAND05.itm~ ~override/WAND05.itm~ //wand of fear
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5040
+	SAY IDENTIFIED_DESC @5041 
+	
+COPY ~low_magic/data/QDWNDFI.spl~ ~override/QDWNDFI.spl~ //2d4 fire damage; save vs wand -2 for half 
+
+//Wand of Frost 
+COPY ~low_magic/data/QDWAND06.itm~ ~override/WAND06.itm~ //wand of frost
+     ~low_magic/data/QDWAND06.itm~ ~override/WANDFRE.itm~ //wand of freezing death [temporary]
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5050
+	SAY IDENTIFIED_DESC @5051 
+	
+COPY ~low_magic/data/QDWNDCO.spl~ ~override/QDWNDCO.spl~ //1d4 cold damage; save vs wand -2 or slow 12 seconds
+
+//Wand of Lightning
+COPY ~low_magic/data/QDWAND07.itm~ ~override/WAND07.itm~ //wand of lightning
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5060
+	SAY IDENTIFIED_DESC @5061
+	
+COPY ~low_magic/data/QDWNDLI.spl~ ~override/QDWNDLI.spl~ //1d6 electric damage
+
+//Wand of Sleep 
+COPY ~low_magic/data/QDWAND08.itm~ ~override/WAND08.itm~ //wand of sleep
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5070
+	SAY IDENTIFIED_DESC @5071
+	
+COPY ~low_magic/data/QDWNDSL.spl~ ~override/QDWNDSL.spl~ //save vs wand -2 or sleep 12 sec [damage interrupted] 
+	 ~low_magic/data/QDWNDSL.eff~ ~override/QDWNDSL.eff~ //prot from spell, for elves/half-elves
+
+//Wand of Polymorphing 
+COPY ~low_magic/data/QDWAND09.itm~ ~override/WAND09.itm~ //wand of polymorphing
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5080
+	SAY IDENTIFIED_DESC @5081 
+	
+COPY ~low_magic/data/QDWNDPL.spl~ ~override/QDWNDPL.spl~ //save vs wand -2 or poly for 7 sec
+
+//Wand of the Heavens 
+COPY ~low_magic/data/QDWAND11.itm~ ~override/WAND11.itm~ //wand of the heavens
+	 ~low_magic/data/QDWAND11.itm~ ~override/TTWAND.itm~ //tutorial wand of heavens
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5090
+	SAY IDENTIFIED_DESC @5091
+	
+COPY ~low_magic/data/QDWNDHV.spl~ ~override/QDWNDHV.spl~ //d4 fire damage; +d4 magic vs evil 
+	 ~low_magic/data/QDWNDHV.eff~ ~override/QDWNDHV.eff~ //d4 magic damage vs. evil 
+	 
+//Wand of Cloudkill
+COPY ~low_magic/data/QDWAND13.itm~ ~override/WAND13.itm~ //wand of cloudkill
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5100
+	SAY IDENTIFIED_DESC @5101
+	
+COPY ~low_magic/data/QDWNDCK.spl~ ~override/QDWNDCK.spl~ //1d6 poison damage; save vs wand -2 or slay 6 HD
+
+
+//Wand of Summoning 
+COPY ~low_magic/data/QDWAND10.itm~ ~override/WAND10.itm~ //wand of summoning
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5110
+	SAY IDENTIFIED_DESC @5111 
+	
+COPY ~low_magic/data/QDWNDSU.spl~ ~override/QDWNDSU.spl~ //summon monsum02 cre for 12 seconds
+
+//Wand of Cursing 
+COPY ~low_magic/data/QDWAND19.itm~ ~override/WAND19.itm~ //wand of curses
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5120
+	SAY IDENTIFIED_DESC @5121 
+	
+COPY ~low_magic/data/QDWNDC1.spl~ ~override/QDWNDC1.spl~ //save vs wand -2 or silence for 12 seconds
+COPY ~low_magic/data/QDWNDC2.spl~ ~override/QDWNDC2.spl~ //save vs wand -2 or blind for 12 seconds
+
+//Wand of Spellstriking 
+COPY ~low_magic/data/QDWAND18.itm~ ~override/WAND18.itm~ //wand of spellstriking
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5130
+	SAY IDENTIFIED_DESC @5131 
+	
+COPY ~low_magic/data/QDWNDS1.spl~ ~override/QDWNDS1.spl~ //save vs wand -2 or remove combat/specific protections
+COPY ~low_magic/data/QDWNDS2.spl~ ~override/QDWNDS2.spl~ //save vs wand -2 or remove spell protections
+
+//IWD: Wand of Armory [currently interrupts spellcasting] 
+/*
+COPY ~low_magic/data/QDWNDARM.itm~ ~override/WANDARM.itm~ //wand of armory
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5140
+	SAY IDENTIFIED_DESC @5141 
+	
+COPY ~low_magic/data/QDWNDA1.spl~ ~override/QDWNDA1.spl~ //+2 AC; imm to magic missiles for 12 seconds 
+*/
+
+//IWD: Wand of Corrosion 
+COPY ~low_magic/data/QDWNDCOR.itm~ ~override/WANDCOR.itm~ //wand of corrosion
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5150
+	SAY IDENTIFIED_DESC @5151 
+	
+COPY ~low_magic/data/QDWNDCR.spl~ ~override/QDWNDCR.spl~ //1d4 acid damage; save vs wand -2 or -2 AC for 1 round 
+
+//IWD: Wand of Many Missiles 
+COPY ~low_magic/data/QDWANDMM.itm~ ~override/WANDMIS.itm~ //wand of many missiles
+	SAY NAME1 @5005 
+	SAY UNIDENTIFIED_DESC @5006
+	
+	SAY NAME2 @5160
+	SAY IDENTIFIED_DESC @5161 
+	
+	
+//Convert the following to rods or other appropriate items 
+// SoD: Wand of Water Elemental Summoning -> Bowl of Water Elementals 
+// IWD: Wand of Trap Detection -> ??? [Goggles of Trap Detection?] 
+
+END

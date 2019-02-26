@@ -7,7 +7,9 @@
 @400   = ~Increase Scroll Prices~
 @401   = ~Increase as Multiple of Existing Price~
 @402   = ~Increase Based on Spell Level~
-@500   = ~Weaponized Wands~
+@500   = ~Changes to Wands~
+@501   = ~Weaponized Wands~
+@502   = ~Reduced Wand Charges~
 @600   = ~Slower XP Advancement for Warriors & Rogues~
 @700   = ~Reduced Magical Item Slots~
 @701   = ~One Wondrous Item Slot~ 
@@ -437,4 +439,3 @@ Requires:
 
 Weight: 1~
 
-@5001 = 

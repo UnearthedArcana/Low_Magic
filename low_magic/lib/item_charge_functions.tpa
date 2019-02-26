@@ -1,0 +1,162 @@
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//						ITEM CHARGE FUNCTIONS
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+
+// Alters properties of all store items matching the resource name specified by "match_resref".
+DEFINE_PATCH_FUNCTION ALTER_STORE_ITEM
+INT_VAR
+  duration               = "-1"
+  charges1               = "-1"
+  charges2               = "-1"
+  charges3               = "-1"
+  flags                  = "-1"
+  number_in_stock        = "-1"
+  infinite_supply        = "-1"
+  flags_mode   = 0  // 0=overwrite, 1=set bits, 2=clear bits
+STR_VAR
+  match_resref = ~~
+  resref       = ~~
+BEGIN
+  PATCH_IF (NOT ~%match_resref%~ STR_EQ ~~) BEGIN
+    READ_LONG 0x034 ofs_items_for_sales
+    READ_LONG 0x038 num_items_for_sales
+    FOR (idx = 0; idx < num_items_for_sales; ++idx) BEGIN
+      SET ofs = ofs_items_for_sales + idx * 0x1c
+      READ_ASCII ofs s (8) NULL
+      PATCH_IF (~%match_resref%~ STR_EQ ~%s%~) BEGIN
+        PATCH_IF (NOT ~%resref%~ STR_EQ ~~) BEGIN
+          WRITE_ASCIIE ofs ~%resref%~ (8)
+        END
+        PATCH_IF (duration != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x08) duration
+        END
+        PATCH_IF (charges1 != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x0a) charges1
+        END
+        PATCH_IF (charges2 != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x0c) charges2
+        END
+        PATCH_IF (charges3 != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x0e) charges3
+        END
+        PATCH_IF (number_in_stock != "-1") BEGIN
+          WRITE_LONG (ofs + 0x014) number_in_stock
+        END
+        PATCH_IF (infinite_supply != "-1") BEGIN
+          WRITE_LONG (ofs + 0x018) infinite_supply
+        END
+        PATCH_IF (flags != "-1") BEGIN
+          PATCH_IF (flags_mode = 1) BEGIN // set specific bits
+            WRITE_LONG (ofs + 0x10) (THIS BOR flags)
+          END ELSE PATCH_IF (flags_mode = 2) BEGIN  // clear specific bits
+            WRITE_LONG (ofs + 0x10) (THIS BAND BNOT flags)
+          END ELSE BEGIN  // default: overwrite all flags
+            WRITE_LONG (ofs + 0x10) flags
+          END
+        END
+      END
+    END
+  END
+END
+
+// Alters properties of all area items matching the resource name specified by "match_resref".
+DEFINE_PATCH_FUNCTION ALTER_AREA_ITEM
+INT_VAR
+  duration     = "-1"
+  charges1     = "-1"
+  charges2     = "-1"
+  charges3     = "-1"
+  flags        = "-1"
+  flags_mode   = 0  // 0=overwrite, 1=set bits, 2=clear bits
+STR_VAR
+  match_resref = ~~
+  resref       = ~~
+BEGIN
+  PATCH_IF (NOT ~%match_resref%~ STR_EQ ~~) BEGIN
+    READ_LONG 0x078 ofs_items
+    READ_SHORT 0x076 num_items
+    FOR (idx = 0; idx < num_items; ++idx) BEGIN
+      SET ofs = ofs_items + idx * 0x14
+      READ_ASCII ofs s (8) NULL
+      PATCH_IF (~%match_resref%~ STR_EQ ~%s%~) BEGIN
+        PATCH_IF (NOT ~%resref%~ STR_EQ ~~) BEGIN
+          WRITE_ASCIIE ofs ~%resref%~ (8)
+        END
+        PATCH_IF (duration != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x08) duration
+        END
+        PATCH_IF (charges1 != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x0a) charges1
+        END
+        PATCH_IF (charges2 != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x0c) charges2
+        END
+        PATCH_IF (charges3 != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x0e) charges3
+        END
+        PATCH_IF (flags != "-1") BEGIN
+          PATCH_IF (flags_mode = 1) BEGIN // set specific bits
+            WRITE_LONG (ofs + 0x10) (THIS BOR flags)
+          END ELSE PATCH_IF (flags_mode = 2) BEGIN  // clear specific bits
+            WRITE_LONG (ofs + 0x10) (THIS BAND BNOT flags)
+          END ELSE BEGIN  // default: overwrite all flags
+            WRITE_LONG (ofs + 0x10) flags
+          END
+        END
+      END
+    END
+  END
+END
+
+// Alters properties of all inventory items matching the resource name specified by "match_resref".
+DEFINE_PATCH_FUNCTION ALTER_CRE_ITEM
+INT_VAR
+  duration     = "-1"
+  charges1     = "-1"
+  charges2     = "-1"
+  charges3     = "-1"
+  flags        = "-1"
+  flags_mode   = 0  // 0=overwrite, 1=set bits, 2=clear bits
+STR_VAR
+  match_resref = ~~
+  resref       = ~~
+BEGIN
+  PATCH_IF (NOT ~%match_resref%~ STR_EQ ~~) BEGIN
+    READ_LONG 0x2bc ofs_items
+    READ_LONG 0x2c0 num_items
+    FOR (idx = 0; idx < num_items; ++idx) BEGIN
+      SET ofs = ofs_items + idx * 0x14
+      READ_ASCII ofs s (8) NULL
+      PATCH_IF (~%match_resref%~ STR_EQ ~%s%~) BEGIN
+        PATCH_IF (NOT ~%resref%~ STR_EQ ~~) BEGIN
+          WRITE_ASCIIE ofs ~%resref%~ (8)
+        END
+        PATCH_IF (duration != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x08) duration
+        END
+        PATCH_IF (charges1 != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x0a) charges1
+        END
+        PATCH_IF (charges2 != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x0c) charges2
+        END
+        PATCH_IF (charges3 != "-1") BEGIN
+          WRITE_SHORT (ofs + 0x0e) charges3
+        END
+        PATCH_IF (flags != "-1") BEGIN
+          PATCH_IF (flags_mode = 1) BEGIN // set specific bits
+            WRITE_LONG (ofs + 0x10) (THIS BOR flags)
+          END ELSE PATCH_IF (flags_mode = 2) BEGIN  // clear specific bits
+            WRITE_LONG (ofs + 0x10) (THIS BAND BNOT flags)
+          END ELSE BEGIN  // default: overwrite all flags
+            WRITE_LONG (ofs + 0x10) flags
+          END
+        END
+      END
+    END
+  END
+END

@@ -1,0 +1,34 @@
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//							
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+DEFINE_ACTION_FUNCTION slower_noncaster_xp BEGIN
+
+
+//__________________________________________________________________________________
+//
+//	this puts thieves and bards onto the fighter advancement table, and fighters onto the paladin table
+//
+COPY_EXISTING ~xplevel.2da~ ~override~
+  COUNT_2DA_COLS cols
+  PATCH_IF GAME_IS ~bgee~ BEGIN
+	SET cols = (%cols% -1)
+  END
+  FOR (col = 1; col < cols; ++col) BEGIN
+	READ_2DA_ENTRY 1 col cols fthac0			//		read fighter = row 1
+	SET_2DA_ENTRY  6 col cols %fthac0%			//		write thief = row 6
+	SET_2DA_ENTRY  7 col cols %fthac0%			//		write bard = row 7
+  END
+  FOR (col = 1; col < cols; ++col) BEGIN
+	READ_2DA_ENTRY 2 col cols rthac0			//		read ranger = row 2
+	SET_2DA_ENTRY 1 col cols %rthac0%			//		write fighter = row 1
+  END
+BUT_ONLY
+//__________________________________________________________________________________
+
+END

@@ -1,0 +1,438 @@
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//							
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+DEFINE_ACTION_FUNCTION reduced_wand_charges BEGIN
+
+// PRINT ~Let's tweak all STORES so that they can no longer purchase wands (i.e., it'll be no longer possible to recharge them.....)~
+
+ PRINT ~Let's set the number of charges to %wand_charge_number% in every .STO file.....~
+
+ COPY_EXISTING_REGEXP ~.*\.sto~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x9b) BEGIN
+    READ_LONG 0x08 type                  //  (0=Store, 1=Tavern, 2=Inn, 3=Temple, 5=Container)
+    PATCH_IF (type != 5) BEGIN
+   
+      LPF REMOVE_STORE_PURCHASE     // WeiDU v245 or later required!
+      INT_VAR
+        category = 35              // Stores can no longer purchase wands
+      END
+     
+      // Let's set the number of charges to 10 in every .STO file.....
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND02~       // Wand of Fear
+        resref = ~WAND02~
+      END
+     
+      LPF ALTER_STORE_ITEM              
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        resref = ~WAND03~        // Wand of Magic Missiles
+        match_resref = ~WAND03~
+      END
+     
+      LPF ALTER_STORE_ITEM              
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        resref = ~WAND04~        // Wand of Paralyzation
+        match_resref = ~WAND04~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = 5
+        charges2 = 5
+      STR_VAR
+        match_resref = ~WAND05~       // Wand of Fire
+        resref = ~WAND05~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND06~       // Wand of Frost
+        resref = ~WAND06~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND07~       // Wand of Lightning
+        resref = ~WAND07~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND08~       // Wand of Sleep
+        resref = ~WAND08~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND09~       // Wand of Polymorphing
+        resref = ~WAND09~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND10~       // Wand of Monster Summoning
+        resref = ~WAND10~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND11~       // Wand of the Heavens
+        resref = ~WAND11~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~TTWAND~       // Wand of the Heavens (Tutorial)
+        resref = ~TTWAND~
+      END
+     
+      LPF ALTER_STORE_ITEM              
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        resref = ~WAND12~        // Wand of Magic Missiles (Imoen)
+        match_resref = ~WAND12~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND13~       // Wand of Cloukill
+        resref = ~WAND13~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = 5
+        charges2 = 5
+      STR_VAR
+        match_resref = ~WAND18~       // Wand of Spell Striking
+        resref = ~WAND18~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND19~       // Wand of Cursing
+        resref = ~WAND19~
+      END
+     
+      LPF ALTER_STORE_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~BDWAND01~       // Wand of Water Elemental Summoning
+        resref = ~BDWAND01~
+      END
+     
+    END
+  END
+ BUT_ONLY
+
+ PRINT ~Let's set the number of charges to %wand_charge_number% in every .ARE file.....~
+
+ COPY_EXISTING_REGEXP ~.*\.are~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x11b) BEGIN
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND02~       // Wand of Fear
+        resref = ~WAND02~
+      END
+     
+      LPF ALTER_AREA_ITEM              
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        resref = ~WAND03~        // Wand of Magic Missiles
+        match_resref = ~WAND03~
+      END
+     
+      LPF ALTER_AREA_ITEM              
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        resref = ~WAND04~        // Wand of Paralyzation
+        match_resref = ~WAND04~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = 5
+        charges2 = 5
+      STR_VAR
+        match_resref = ~WAND05~       // Wand of Fire
+        resref = ~WAND05~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND06~       // Wand of Frost
+        resref = ~WAND06~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND07~       // Wand of Lightning
+        resref = ~WAND07~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND08~       // Wand of Sleep
+        resref = ~WAND08~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND09~       // Wand of Polymorphing
+        resref = ~WAND09~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND10~       // Wand of Monster Summoning
+        resref = ~WAND10~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND11~       // Wand of the Heavens
+        resref = ~WAND11~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~TTWAND~       // Wand of the Heavens (Tutorial)
+        resref = ~TTWAND~
+      END
+     
+      LPF ALTER_AREA_ITEM              
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        resref = ~WAND12~        // Wand of Magic Missiles (Imoen)
+        match_resref = ~WAND12~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND13~       // Wand of Cloukill
+        resref = ~WAND13~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = 5
+        charges2 = 5
+      STR_VAR
+        match_resref = ~WAND18~       // Wand of Spell Striking
+        resref = ~WAND18~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~WAND19~       // Wand of Cursing
+        resref = ~WAND19~
+      END
+     
+      LPF ALTER_AREA_ITEM
+      INT_VAR
+        charges1 = %wand_charge_number%
+      STR_VAR
+        match_resref = ~BDWAND01~       // Wand of Water Elemental Summoning
+        resref = ~BDWAND01~
+      END
+     
+  END
+ BUT_ONLY
+
+ PRINT ~Let's set the number of charges to %wand_charge_number% in every .CRE file.....~
+
+ COPY_EXISTING_REGEXP ~.*\.cre~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x2d3) BEGIN
+
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND02~         // Wand of Fear
+      resref = ~WAND02~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND03~        // Wand of Magic Missiles
+      resref = ~WAND03~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND04~          // Wand of Paralyzation
+      resref = ~WAND04~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = 5
+      charges2 = 5
+    STR_VAR
+      match_resref = ~WAND05~           // Wand of Fire
+      resref = ~WAND05~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND06~           // Wand of Frost
+      resref = ~WAND06~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND07~           // Wand of Lightning
+      resref = ~WAND07~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND08~           // Wand of Sleep
+      resref = ~WAND08~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND09~            // Wand of Polymorphing
+      resref = ~WAND09~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND10~           // Wand of Monster Summoning
+      resref = ~WAND10~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND11~           // Wand of the Heavens
+      resref = ~WAND11~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~TTWAND~         // Wand of the Heavens (Tutorial)
+      resref = ~TTWAND~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND12~         // Wand of Magic Missiles (Imoen)
+      resref = ~WAND12~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND13~        // Wand of Cloudkill
+      resref = ~WAND13~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = (%wand_charge_number% / 2)
+      charges2 = (%wand_charge_number% / 2)
+    STR_VAR
+      match_resref = ~WAND18~        // Wand of Spell Striking
+      resref = ~WAND18~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~WAND19~        // Wand of Cursing
+      resref = ~WAND19~
+    END
+   
+    LPF ALTER_CRE_ITEM
+    INT_VAR
+      charges1 = %wand_charge_number%
+    STR_VAR
+      match_resref = ~BDWAND01~         // Wand of Water Elemental Summoning
+      resref = ~BDWAND01~
+    END
+   
+  END
+ BUT_ONLY
+
+END

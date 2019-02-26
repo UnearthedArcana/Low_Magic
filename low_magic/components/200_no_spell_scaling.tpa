@@ -1,0 +1,42 @@
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//							
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+DEFINE_ACTION_FUNCTION no_spell_scaling BEGIN
+
+//__________________________________________________________________________________
+//
+COPY_EXISTING_REGEXP GLOB ~^.+\.spl$~ ~override~
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 2 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 3 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 4 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 5 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 6 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 7 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 8 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 9 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 10 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 11 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 12 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 13 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 14 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 15 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 16 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 17 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 18 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 19 END
+	LPF DELETE_SPELL_HEADER INT_VAR header_type = (0 - 1) min_level = 20 END
+BUT_ONLY
+
+/*
+ALSO: need to do MAJOR description patching... in the "Duration: " field, but also in bodies of spell descriptions, to remove all mention of level scaling and durations. 
+Looks like a YUGE PITA :(
+*/
+//__________________________________________________________________________________
+
+END

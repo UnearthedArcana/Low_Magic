@@ -1,0 +1,192 @@
+
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+//
+//							
+//__________________________________________________________________________________
+//__________________________________________________________________________________
+
+
+DEFINE_ACTION_FUNCTION reduced_spell_durations BEGIN
+
+//__________________________________________________________________________________
+//
+OUTER_SET new_short_duration 		= (%short_duration_rounds% * 6)
+OUTER_SET new_medium_duration		= (%medium_duration_rounds% * 6)
+OUTER_SET new_long_duration			= (%long_duration_turns% * 60)
+OUTER_SET new_all_day_duration 		= (%day_duration_hours% * 300)
+//__________________________________________________________________________________
+
+//use game install language for word matching_______________________________________
+//
+ACTION_IF NOT VARIABLE_IS_SET %EE_LANGUAGE% BEGIN
+  COPY_EXISTING ~spwi101.spl~ ~override~
+	READ_STRREF 0x50 description_string
+  BUT_ONLY
+  ACTION_FOR_EACH lang IN ~en_US~ ~fr_FR~ ~pl_PL~ /*~de_DE~ ~es_ES~ ~cs_CZ~ ~ru_RU~ ~ko_KR~*/ BEGIN
+	WITH_TRA ~low_magic/language/%lang%/descriptions.tra~ BEGIN
+	  OUTER_SPRINT duration_lang @3000	//	USING_TRA ~low_magic/language/%lang%/descriptions.tra~
+	END	
+	ACTION_IF NOT (~%description_string%~ STRING_CONTAINS_REGEXP ~%duration_lang%~) BEGIN
+	  OUTER_SPRINT game_lang ~%lang%~
+	END
+  END
+END
+ACTION_IF VARIABLE_IS_SET %EE_LANGUAGE% BEGIN
+  OUTER_SPRINT ee_lang ~%EE_LANGUAGE%~
+  ACTION_IF FILE_EXISTS ~low_magic/language/%ee_lang%/descriptions.tra~ BEGIN
+	OUTER_SPRINT game_lang ~%EE_LANGUAGE%~
+  END
+END
+ACTION_IF NOT VARIABLE_IS_SET %game_lang% BEGIN
+	OUTER_SPRINT game_lang ~en_US~
+END
+//__________________________________________________________________________________
+
+
+//patch spells______________________________________________________________________
+//
+WITH_TRA ~low_magic/language/%game_lang%/descriptions.tra~ BEGIN
+	OUTER_SPRINT duration_line @3000
+	OUTER_SPRINT duration_string @3001
+END
+
+OUTER_SET short = 0
+OUTER_SET medium = 0
+OUTER_SET long = 0
+OUTER_SET day = 0
+
+COPY_EXISTING_REGEXP GLOB ~^.+\.spl$~ ~override~
+  SET short = 0
+  SET medium = 0
+  SET long = 0
+  SET day = 0
+  READ_LONG 0x50 description
+  READ_LONG 0x64 header_offset
+  READ_SHORT 0x68 header_count
+  READ_LONG 0x6a effect_offset
+  FOR (header = 0; header < header_count ; ++header) BEGIN
+	READ_SHORT (header_offset + (header * 0x28) + 0x1e) effect_count
+	READ_SHORT (header_offset + (header * 0x28) + 0x20) effect_index
+	FOR (effect = 0; effect < effect_count; ++effect) BEGIN
+	 READ_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xc) timing_mode
+	 PATCH_IF timing_mode = 0 BEGIN
+	  READ_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) old_duration
+	  PATCH_IF (old_duration < 61) BEGIN
+		PATCH_IF (old_duration > 12) BEGIN
+		  SET short = 1
+		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_short_duration
+		END
+	  END
+	  PATCH_IF (old_duration > 60) AND (old_duration < 300) BEGIN
+		  SET medium = 1
+		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_medium_duration
+	  END
+	  PATCH_IF (old_duration > 299) AND (old_duration < 901) BEGIN
+		  SET long = 1
+		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_long_duration
+	  END
+	  PATCH_IF (old_duration > 900) AND (old_duration < 99999999) BEGIN
+		  SET day = 1
+		  WRITE_LONG (effect_offset + ((effect_index + effect)* 0x30) + 0xe) new_all_day_duration
+	  END
+	 END
+	END
+  END
+  PATCH_IF (%short% = 1) BEGIN
+	  PATCH_IF (%description% >= 0) BEGIN // verify desc is valid
+		READ_STRREF 0x50 ~description_string~
+		INNER_PATCH_SAVE new_description ~%description_string%~ BEGIN
+		  REPLACE_TEXTUALLY ~%duration_line%~ ~%duration_string%%short_duration_rounds% rounds~
+		END
+		SAY_EVALUATED 0x50 ~%new_description%~
+	  END
+  END
+  PATCH_IF (%medium% = 1) BEGIN
+	  PATCH_IF (%description% >= 0) BEGIN // verify desc is valid
+		READ_STRREF 0x50 ~description_string~
+		INNER_PATCH_SAVE new_description ~%description_string%~ BEGIN
+		  REPLACE_TEXTUALLY ~%duration_line%~ ~%duration_string%%medium_duration_rounds% rounds~
+		END
+		SAY_EVALUATED 0x50 ~%new_description%~
+	  END
+  END
+  PATCH_IF (%long% = 1) BEGIN
+	  PATCH_IF (%description% >= 0) BEGIN // verify desc is valid
+		READ_STRREF 0x50 ~description_string~
+		INNER_PATCH_SAVE new_description ~%description_string%~ BEGIN
+		  REPLACE_TEXTUALLY ~%duration_line%~ ~%duration_string%%long_duration_turns% turns~
+		END
+		SAY_EVALUATED 0x50 ~%new_description%~
+	  END
+  END
+  PATCH_IF (%day% = 1) BEGIN
+	  PATCH_IF (%description% >= 0) BEGIN // verify desc is valid
+		READ_STRREF 0x50 ~description_string~
+		INNER_PATCH_SAVE new_description ~%description_string%~ BEGIN
+		  REPLACE_TEXTUALLY ~%duration_line%~ ~%duration_string%%day_duration_hours% hours~
+		END
+		SAY_EVALUATED 0x50 ~%new_description%~
+	  END
+  END
+  SET short = 0
+  SET medium = 0
+  SET long = 0
+  SET day = 0
+BUT_ONLY
+//__________________________________________________________________________________
+
+
+//fix entangle/web/cloud spells & projectiles_______________________________________
+//
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr105.spl~ BEGIN
+  COPY_EXISTING ~sppr105.spl~ ~override~
+	LPF ALTER_EFFECT INT_VAR match_duration = 18 duration = 9 END
+END
+	
+ACTION_IF FILE_EXISTS_IN_GAME ~sppr250.spl~ BEGIN
+  COPY_EXISTING ~sppr250.spl~ ~override~
+	LPF ALTER_EFFECT INT_VAR match_duration = 18 duration = 6 END
+END
+	
+ACTION_IF FILE_EXISTS_IN_GAME ~spwi213.spl~ BEGIN
+  COPY_EXISTING ~spwi213.spl~ ~override~
+	LPF ALTER_EFFECT INT_VAR match_duration = 18 duration = 9 END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~spwi215.spl~ BEGIN
+  COPY_EXISTING ~spwi215.spl~ ~override~
+	LPF ALTER_EFFECT INT_VAR match_duration = 18 duration = 7 END
+END
+
+COPY_EXISTING_REGEXP GLOB ~^.+\.pro$~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x215) BEGIN
+	READ_BYTE 0x216 pro_reps
+	PATCH_IF (pro_reps > 3) BEGIN
+	  WRITE_BYTE 0x216 3
+	END
+  END
+BUT_ONLY
+
+/*
+COPY_EXISTING ~web.pro~ ~override~
+	WRITE_BYTE 0x216 3
+
+COPY_EXISTING ~cloud.pro~ ~override~
+	WRITE_BYTE 0x216 3
+
+COPY_EXISTING ~pfield.pro~ ~override~
+	WRITE_BYTE 0x216 3
+
+COPY_EXISTING ~cloudkil.pro~ ~override~
+	WRITE_BYTE 0x216 3
+
+COPY_EXISTING ~1pdeathf.pro~ ~override~
+	WRITE_BYTE 0x216 3
+
+COPY_EXISTING ~1pincind.pro~ ~override~
+	WRITE_BYTE 0x216 3
+*/
+//__________________________________________________________________________________
+
+END
